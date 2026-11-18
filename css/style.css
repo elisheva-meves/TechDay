@@ -1,0 +1,576 @@
+/* ==========================================================
+   style.css - עיצוב משותף לכל דפי האתר TECHDAY
+   (עיצובים ששייכים לדף בודד נמצאים בקובץ ה-CSS של אותו דף)
+   ========================================================== */
+
+:root {
+  --bg: #080d1b;
+  --panel: rgba(18, 27, 49, 0.72);
+  --line: rgba(160, 184, 230, 0.16);
+  --muted: #9eacc6;
+  --text: #f5f7ff;
+  --blue: #5794ff;
+  --purple: #a879ff;
+  --cyan: #58d8e8;
+  --green: #48ddb0;
+  --red: #ff7d91;
+  --accent: #5794ff;
+}
+
+/* ---------- איפוס ובסיס ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(57, 91, 191, 0.22), transparent 38%),
+    radial-gradient(ellipse at 92% 45%, rgba(117, 57, 184, 0.18), transparent 40%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: "Heebo", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: #a9c7ff;
+}
+
+a:hover {
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 5.4vw, 3.9rem);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul,
+ol {
+  margin: 0 0 1em;
+  padding-inline-start: 1.4em;
+}
+
+/* ---------- כותרת עליונה (header) ---------- */
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 3%;
+  padding: 12px 5%;
+  background: rgba(7, 12, 26, 0.86);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+body > header > a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+body > header > a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  box-shadow: 0 7px 25px rgba(77, 112, 216, 0.4);
+}
+
+body > header > a span {
+  color: #8daeff;
+}
+
+/* ---------- תפריט ניווט (nav) ---------- */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #c0cbe0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: #fff;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+nav a[aria-current="page"] {
+  color: #fff;
+  background: rgba(71, 127, 245, 0.25);
+  border-color: rgba(102, 152, 255, 0.5);
+}
+
+/* ---------- מבנה מרכזי: main + aside ---------- */
+.wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 3%;
+  width: 92%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 44px 0 80px;
+}
+
+main {
+  flex: 1 1 70%;
+  min-width: 0;
+}
+
+main > section,
+main > article {
+  margin-bottom: 56px;
+  animation: fade-up 0.7s ease both;
+}
+
+main > section:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+main > section:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+
+aside {
+  flex: 0 0 24%;
+  position: sticky;
+  top: 100px;
+  padding: 20px 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+aside h2 {
+  font-size: 1.1rem;
+}
+
+aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+aside h2 ~ h2 {
+  margin-top: 26px;
+}
+
+aside ul + p {
+  margin-top: 18px;
+}
+
+aside li + li {
+  margin-top: 4px;
+}
+
+aside li a {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #c0cbe0;
+  text-decoration: none;
+}
+
+aside li a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+/* ---------- רכיבים משותפים ---------- */
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 4px 14px;
+  color: #a9c7ff;
+  background: rgba(79, 135, 255, 0.1);
+  border: 1px solid rgba(94, 146, 255, 0.28);
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.lead {
+  max-width: 40em;
+  color: #b8c4da;
+  font-size: 1.12rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  color: #e8efff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.btn:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+.btn.primary {
+  border-color: transparent;
+  background: linear-gradient(110deg, #377df5, #8059ed);
+  box-shadow: 0 8px 26px rgba(91, 101, 231, 0.3);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 0;
+}
+
+.card {
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.14);
+}
+
+/* הדגשות טקסט מתקדמות */
+mark {
+  padding: 1px 9px;
+  color: #dce8ff;
+  background: rgba(71, 127, 245, 0.25);
+  border-radius: 8px;
+}
+
+time {
+  font-family: "Fira Code", "Courier New", monospace;
+  font-weight: 600;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+code,
+pre,
+kbd {
+  font-family: "Fira Code", "Courier New", monospace;
+}
+
+/* קישור לקובץ PDF מקבל אייקון אוטומטית */
+a[href$=".pdf"]::before {
+  content: "📄 ";
+}
+
+/* קישור חיצוני מקבל חץ */
+a[href^="http"]::after {
+  content: " ↖";
+  font-size: 0.85em;
+}
+
+/* ---------- טבלאות ---------- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+}
+
+caption {
+  padding: 12px 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: start;
+  caption-side: bottom;
+}
+
+th,
+td {
+  padding: 12px 16px;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+}
+
+thead th {
+  color: #dce8ff;
+  background: rgba(71, 127, 245, 0.18);
+  font-weight: 700;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+tbody tr:hover {
+  background: rgba(71, 127, 245, 0.1);
+}
+
+tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* ---------- פס התקדמות <progress> ---------- */
+progress {
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 99px;
+  overflow: hidden;
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 99px;
+}
+
+progress::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 99px;
+}
+
+/* ---------- details / summary ---------- */
+details {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+details + details {
+  margin-top: 10px;
+}
+
+summary {
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "＋";
+  display: inline-block;
+  margin-inline-end: 10px;
+  color: var(--blue);
+  transition: transform 0.25s;
+}
+
+details[open] > summary::before {
+  content: "－";
+}
+
+details > :not(summary) {
+  margin-inline: 18px;
+}
+
+details > :last-child {
+  margin-bottom: 18px;
+}
+
+/* ---------- כותרת תחתונה (footer) ---------- */
+body > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 3%;
+  padding: 22px 5%;
+  color: #7f90ad;
+  font-size: 0.9rem;
+  background: rgba(7, 12, 26, 0.7);
+  border-top: 1px solid var(--line);
+}
+
+body > footer p {
+  margin: 0;
+}
+
+body > footer nav a {
+  padding: 2px 10px;
+  font-size: 0.9rem;
+}
+
+/* ---------- כפתור חזרה לראש הדף (position: fixed) ---------- */
+.to-top {
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  background: linear-gradient(135deg, #377df5, #8059ed);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(55, 125, 245, 0.45);
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: transform 0.2s;
+}
+
+.to-top:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- אנימציות ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- רספונסיביות ---------- */
+@media (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  main,
+  aside {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  aside {
+    position: static;
+  }
+
+  body > header {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .wrapper {
+    padding: 28px 0 60px;
+  }
+
+  body > header {
+    padding: 10px 4%;
+  }
+
+  nav ul {
+    justify-content: center;
+  }
+
+  nav a {
+    padding: 5px 11px;
+    font-size: 0.88rem;
+  }
+
+  body > footer {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

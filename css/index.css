@@ -1,0 +1,338 @@
+/* index.css - עיצוב ייחודי לדף הבית בלבד */
+
+/* ---------- Hero ---------- */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 4%;
+  min-height: 500px;
+}
+
+.hero > div:first-child {
+  flex: 1 1 54%;
+}
+
+.hero h1 span {
+  background: linear-gradient(100deg, #70cfff, #8b8cff 55%, #c69aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 7%;
+  margin: 40px 0 0;
+}
+
+.hero dl div {
+  min-width: 80px;
+}
+
+.hero dt {
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* האיור: כדור צף + מסלולים + חלון קוד (position: absolute / relative) */
+.hero-art {
+  position: relative;
+  flex: 1 1 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #7edfff 0, #647cf9 24%, #6b49b6 50%, rgba(30, 32, 77, 0.1) 72%);
+  opacity: 0.7;
+  box-shadow: 0 0 100px rgba(99, 93, 255, 0.35);
+  animation: float 7s ease-in-out infinite;
+}
+
+.orbit {
+  position: absolute;
+  width: 100%;
+  height: 58%;
+  border: 1px solid rgba(145, 170, 255, 0.28);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+}
+
+.orbit + .orbit {
+  width: 108%;
+  height: 44%;
+  transform: rotate(55deg);
+}
+
+.hero-window {
+  position: relative;
+  width: 92%;
+  padding: 16px 18px;
+  background: rgba(11, 19, 39, 0.8);
+  border: 1px solid rgba(155, 185, 255, 0.25);
+  border-radius: 22px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.3);
+  transform: rotate(-4deg);
+  animation: tilt 9s ease-in-out infinite;
+}
+
+.window-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 6px;
+  padding-bottom: 12px;
+  color: #9aacc9;
+  font: 0.78rem "Fira Code", monospace;
+  border-bottom: 1px solid var(--line);
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.dots i:nth-child(2) {
+  background: #ffcf72;
+}
+
+.dots i:nth-child(3) {
+  background: var(--green);
+}
+
+.hero-window pre {
+  direction: ltr;
+  text-align: left;
+  margin: 0;
+  padding: 10px 0 4px;
+  color: #c5d5f4;
+  font-size: 0.82rem;
+  line-height: 2;
+  overflow-x: auto;
+}
+
+.hero-window .k {
+  color: #b994ff;
+}
+
+.hero-window .c {
+  color: #6fd8bf;
+}
+
+.hero-window .s {
+  color: #f1c77b;
+}
+
+.hero-window .m {
+  color: #7d91b3;
+}
+
+/* ---------- כרטיסי קטגוריות ---------- */
+main > section > h2 + p {
+  max-width: 40em;
+  color: var(--muted);
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 2%;
+  margin-top: 26px;
+}
+
+.categories > article {
+  flex: 1 1 47%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.categories > article:hover {
+  transform: translateY(-5px);
+  border-color: rgba(102, 152, 255, 0.5);
+}
+
+.categories img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.categories > article > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 24px;
+}
+
+.categories h3 {
+  margin-bottom: 0.3em;
+}
+
+.categories p {
+  color: var(--muted);
+}
+
+.categories ul {
+  margin-bottom: 18px;
+  color: #c4d0e5;
+  font-size: 0.95rem;
+}
+
+.categories .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ---------- ארבע תחנות ---------- */
+.stations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 2%;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stations > li {
+  flex: 1 1 22%;
+  min-width: 190px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue);
+  border-radius: 18px;
+}
+
+.stations > li:nth-child(2) {
+  border-top-color: var(--cyan);
+}
+
+.stations > li:nth-child(3) {
+  border-top-color: var(--purple);
+}
+
+.stations > li:nth-child(4) {
+  border-top-color: var(--green);
+}
+
+.stations time {
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 1.7rem;
+}
+
+.stations h3 {
+  margin-bottom: 0.4em;
+}
+
+.stations p {
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+/* ---------- פאנל הורדה + CTA ---------- */
+.cta-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px 4%;
+  padding: 34px;
+  background: linear-gradient(110deg, rgba(32, 57, 108, 0.6), rgba(56, 38, 92, 0.55));
+  border: 1px solid rgba(125, 157, 255, 0.25);
+  border-radius: 24px;
+}
+
+.cta-panel > div {
+  flex: 1 1 55%;
+}
+
+.cta-panel h2 {
+  margin-bottom: 6px;
+}
+
+.cta-panel p {
+  margin: 0;
+  color: #c1cce0;
+}
+
+.cta-panel + .cta-panel {
+  margin-top: 18px;
+}
+
+/* ---------- אנימציות ---------- */
+/* מזיז את הכדור */
+@keyframes float {
+  50% {
+    transform: translateY(-16px) scale(1.03);
+  }
+}
+/* //מזיז את הכרטיס */
+@keyframes tilt {
+  50% {
+    transform: rotate(-2deg) translateY(-6px);
+  }
+}
+
+/* ---------- רספונסיביות ---------- */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .hero > div:first-child,
+  .hero-art {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .hero-art {
+    min-height: 330px;
+  }
+}
+
+@media (max-width: 620px) {
+  .categories > article {
+    flex: 1 1 100%;
+  }
+
+  .stations > li {
+    flex: 1 1 100%;
+  }
+
+  .hero-art {
+    min-height: 280px;
+  }
+
+  .cta-panel {
+    padding: 24px;
+  }
+}

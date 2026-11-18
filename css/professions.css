@@ -1,0 +1,273 @@
+/* professions.css - עיצוב משותף לארבעת דפי המקצועות (פיתוח / תשתיות / נתונים / מוצר) */
+
+/* ---------- פתיח הדף ---------- */
+main > header {
+  margin-bottom: 36px;
+}
+
+main > header h1 {
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+}
+
+main > header p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- טבלת סיכום ---------- */
+main > section:first-of-type h2 {
+  margin-bottom: 16px;
+}
+
+th a {
+  font-weight: 600;
+}
+
+/* ---------- כרטיס מקצוע ---------- */
+main > article {
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 22px;
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.12);
+}
+
+/* מדגישים את המקצוע שנבחר מהתפריט הצדדי */
+main > article:target {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.07), 0 24px 80px rgba(35, 76, 160, 0.3);
+}
+
+main > article > header {
+  display: flex;
+  align-items: center;
+  gap: 4%;
+  margin-bottom: 26px;
+}
+
+main > article > header figure {
+  flex: 0 0 34%;
+  margin: 0;
+}
+
+main > article > header img {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  transition: transform 0.3s;
+}
+
+main > article > header img:hover {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+main > article > header figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+main > article > header div {
+  flex: 1;
+}
+
+main > article > header h2 {
+  margin-bottom: 4px;
+}
+
+main > article > header p {
+  margin-bottom: 10px;
+  color: #b8c4da;
+}
+
+main > article > header mark {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.07);
+  font-weight: 700;
+}
+
+/* ---------- תחנות היום ---------- */
+.stations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 2%;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.stations > li {
+  flex: 1 1 47%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.stations .when {
+  margin-bottom: 6px;
+  color: #a9c8ff;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.stations .when time {
+  margin-inline-end: 8px;
+  color: #fff;
+  font-size: 1.35rem;
+}
+
+.stations h3 {
+  font-size: 1.08rem;
+}
+
+.stations p:not(.when) {
+  color: #bdc9de;
+  font-size: 0.95rem;
+}
+
+.stations ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.stations ul li {
+  padding: 2px 11px;
+  color: #d6e0f2;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 0.8rem;
+}
+
+.stations progress {
+  margin-top: auto;
+}
+
+.stations progress::-webkit-progress-value {
+  background: var(--accent);
+}
+
+.stations progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
+/* ---------- דוגמאות קוד ---------- */
+details figure {
+  margin: 14px 18px 0;
+}
+
+details figcaption {
+  display: inline-block;
+  padding: 2px 12px;
+  color: #a9c8ff;
+  background: rgba(100, 141, 255, 0.14);
+  border-radius: 8px 8px 0 0;
+  font-size: 0.8rem;
+}
+
+details pre {
+  direction: ltr;
+  text-align: left;
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  color: #d5e2fb;
+  background: rgba(5, 9, 20, 0.7);
+  border: 1px solid var(--line);
+  border-radius: 0 12px 12px 12px;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+/* ---------- צבע הדגשה לכל מקצוע (בחירה לפי class) ---------- */
+.backend {
+  --accent: #5595ff;
+}
+
+.frontend {
+  --accent: #a77cff;
+}
+
+.fullstack {
+  --accent: #59c8d5;
+}
+
+.qa {
+  --accent: #48d9ae;
+}
+
+.devops {
+  --accent: #5caeff;
+}
+
+.cyber {
+  --accent: #f3b85c;
+}
+
+.data {
+  --accent: #57d6c1;
+}
+
+.ml {
+  --accent: #b58aff;
+}
+
+.ux {
+  --accent: #ed8fba;
+}
+
+.pm {
+  --accent: #ffb66d;
+}
+
+.scrum {
+  --accent: #74d6a6;
+}
+
+.cloud {
+  --accent: #65c7ef;
+}
+
+.writer {
+  --accent: #d59aff;
+}
+
+/* ---------- רספונסיביות ---------- */
+@media (max-width: 900px) {
+  main > article > header figure {
+    flex-basis: 38%;
+  }
+}
+
+@media (max-width: 620px) {
+  main > article {
+    padding: 18px;
+  }
+
+  main > article > header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  main > article > header figure {
+    flex: 1 1 auto;
+  }
+
+  .stations > li {
+    flex: 1 1 100%;
+  }
+
+  th,
+  td {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}

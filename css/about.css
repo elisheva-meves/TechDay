@@ -1,0 +1,88 @@
+/* about.css - עיצוב ייחודי לדף האודות בלבד */
+
+main > header {
+  margin-bottom: 40px;
+}
+
+main > header p:last-child {
+  margin-bottom: 0;
+}
+
+main h2 {
+  margin-top: 0;
+}
+
+/* ---------- בלוק מידע בשתי עמודות: טקסט + רשימה ---------- */
+.about-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 3%;
+}
+
+.about-grid > * {
+  flex: 1 1 45%;
+}
+
+.about-grid h3 {
+  color: #a9c8ff;
+  font-size: 1.05rem;
+}
+
+.about-grid ul li + li,
+.about-grid ol li + li {
+  margin-top: 6px;
+}
+
+/* ---------- רשימת הגדרות dl ---------- */
+dl.glossary {
+  margin: 0;
+}
+
+dl.glossary dt {
+  margin-top: 14px;
+  color: #fff;
+  font-weight: 700;
+}
+
+dl.glossary dt:first-child {
+  margin-top: 0;
+}
+
+dl.glossary dd {
+  margin: 2px 0 0;
+  color: #bdc9de;
+}
+
+/* ---------- שאלות נפוצות ---------- */
+details p {
+  color: #bdc9de;
+}
+
+/* ---------- ללמידה עצמית ---------- */
+.learning {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 2%;
+}
+
+.learning > article {
+  flex: 1 1 45%;
+}
+
+.learning progress {
+  margin: 4px 0 14px;
+}
+
+@media (max-width: 900px) {
+  .about-grid > *,
+  .learning > article {
+    flex: 1 1 100%;
+  }
+}
+
+
+@media (max-width: 620px) {
+  .about-grid {
+    gap: 14px;
+  }
+}
