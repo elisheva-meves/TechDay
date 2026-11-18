@@ -1,0 +1,444 @@
+/* index.css - עיצוב ייחודי לדף הבית בלבד. נטען אחרי style.css.
+
+   ---------- Hero: החלק הפותח ----------
+   flex בשורה: הטקסט והאיור זה לצד זה, ממורכזים לגובה. min-height: גובה מינימלי של 500 פיקסלים
+   הסלקטור: האלמנט עם class="hero" (החלק הפותח של דף הבית) */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 4%;
+  min-height: 500px;
+}
+
+/* הילד הראשון של hero (הטקסט): flex: 1 1 54% - בערך חצי מהרוחב, ומותר לו לגדול ולהתכווץ
+   הסלקטור: div שהוא ילד ישיר של .hero, וגם הילד הראשון שלו (החלק של הטקסט) */
+.hero > div:first-child {
+  flex: 1 1 54%;
+}
+
+/* טקסט בצבעי מעבר (gradient):
+   1. הרקע של ה-span נצבע במעבר צבעים מתכלת לסגול.
+   2. background-clip: text - הרקע נחתך לצורת האותיות בלבד.
+   3. color: transparent - האותיות עצמן שקופות, ולכן רואים דרכן את מעבר הצבעים.
+   -webkit-background-clip היא אותה תכונה עם קידומת, בשביל Chrome ו-Safari
+   הסלקטור: span שבתוך h1 שבתוך .hero (המילים "אנשי ההייטק") */
+.hero h1 span {
+  background: linear-gradient(100deg, #70cfff, #8b8cff 55%, #c69aff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* שלושת הנתונים (13 מקצועות, 4 תחנות, 4 מסלולים): flex בשורה עם גלישה
+   הסלקטור: רשימת ההגדרות dl שבתוך .hero */
+.hero dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 7%;
+  margin: 40px 0 0;
+}
+
+/* כל זוג של מספר והסבר: רוחב מינימלי של 80 פיקסלים
+   הסלקטור: כל div שבתוך ה-dl (כל זוג של מספר והסבר) */
+.hero dl div {
+  min-width: 80px;
+}
+
+/* המספר: גדול ושמן
+   הסלקטור: כל dt בתוך .hero (המספרים) */
+.hero dt {
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* ההסבר שמתחת למספר. margin: 0 - מבטל את ההזחה ש-dd מקבל כברירת מחדל
+   הסלקטור: כל dd בתוך .hero (ההסברים) */
+.hero dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* האיור: כדור צף + מסלולים + חלון קוד.
+   position: relative - הכדור והמסלולים (absolute) ממוקמים ביחס לאלמנט הזה.
+   flex בעצמו, עם align-items ו-justify-content: center - חלון הקוד באמצע.
+   overflow: hidden - חותך את מה שבולט מחוץ לגבולות (המסלולים רחבים מ-100%)
+   הסלקטור: האלמנט עם class="hero-art" (האיור) */
+.hero-art {
+  position: relative;
+  flex: 1 1 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+/* הכדור הזוהר:
+   position: absolute - יוצא מהזרימה הרגילה, ולכן לא דוחף את חלון הקוד.
+   width: 78% + aspect-ratio: 1 - הגובה שווה לרוחב (ריבוע), ו-border-radius: 50% הופך אותו לעיגול.
+   radial-gradient(circle at 35% 30%, ...) - מעבר צבעים עגול שמרכזו למעלה משמאל,
+   ולכן הכדור נראה מואר מצד אחד, כמו כדור תלת-ממדי. האחוזים אחרי כל צבע: איפה הצבע מתחיל.
+   box-shadow עם טשטוש גדול (100px) יוצר הילה.
+   animation: float 7s ease-in-out infinite - האנימציה float, 7 שניות, בלולאה אינסופית
+   הסלקטור: האלמנט עם class="orb" (הכדור) */
+.orb {
+  position: absolute;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #7edfff 0, #647cf9 24%, #6b49b6 50%, rgba(30, 32, 77, 0.1) 72%);
+  opacity: 0.7;
+  box-shadow: 0 0 100px rgba(99, 93, 255, 0.35);
+  animation: float 7s ease-in-out infinite;
+}
+
+/* מסלול: מסגרת דקה עם border-radius: 50% על מלבן (לא ריבוע), ולכן יוצאת אליפסה.
+   transform: rotate(-28deg) - מסובב באלכסון
+   הסלקטור: כל אלמנט עם class="orbit" (שני המסלולים) */
+.orbit {
+  position: absolute;
+  width: 100%;
+  height: 58%;
+  border: 1px solid rgba(145, 170, 255, 0.28);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+}
+
+/* + (אח צמוד): ה-orbit שבא מיד אחרי orbit אחר, כלומר המסלול השני. גודל וזווית אחרים
+   הסלקטור: .orbit שבא מיד אחרי .orbit אחר (המסלול השני) */
+.orbit + .orbit {
+  width: 108%;
+  height: 44%;
+  transform: rotate(55deg);
+}
+/* חלון הקוד המדומה.
+   position: relative - אלמנט ממוקם שבא אחרי הכדור במסמך, ולכן מצויר מעליו.
+   backdrop-filter: blur - מטשטש את הכדור שמאחוריו, כמו זכוכית.
+   transform: rotate(-4deg) - מוטה מעט, ו-animation: tilt מזיז אותו לאט
+   הסלקטור: האלמנט עם class="hero-window" (חלון הקוד) */
+.hero-window {
+  position: relative;
+  width: 92%;
+  padding: 16px 18px;
+  background: rgba(11, 19, 39, 0.8);
+  border: 1px solid rgba(155, 185, 255, 0.25);
+  border-radius: 22px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.3);
+  transform: rotate(-4deg);
+  animation: tilt 9s ease-in-out infinite;
+}
+/* שורת הכותרת של החלון: flex עם space-between - שם הקובץ בצד אחד והנקודות בצד השני.
+   font: 0.78rem "Fira Code", monospace - קיצור שמגדיר גודל וגופן יחד
+   הסלקטור: האלמנט עם class="window-head" (שורת הכותרת של החלון) */
+.window-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 6px;
+  padding-bottom: 12px;
+  color: #9aacc9;
+  font: 0.78rem "Fira Code", monospace;
+  border-bottom: 1px solid var(--line);
+}
+
+/* שלוש הנקודות: flex בשורה עם רווח של 5 פיקסלים
+   הסלקטור: האלמנט עם class="dots" */
+.dots {
+  display: flex;
+  gap: 5px;
+}
+
+/* כל נקודה (תגית i ריקה) היא עיגול של 8 על 8 פיקסלים. הראשונה אדומה,
+   ו-nth-child(2) ו-(3) צובעים את השנייה בצהוב ואת השלישית בירוק
+   הסלקטור: כל תגית i בתוך .dots (שלוש הנקודות) */
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+/* הסלקטור: ה-i השני בתוך .dots */
+.dots i:nth-child(2) {
+  background: #ffcf72;
+}
+
+/* הסלקטור: ה-i השלישי בתוך .dots */
+.dots i:nth-child(3) {
+  background: var(--green);
+}
+
+/* הקוד: direction: ltr ו-text-align: left, כי קוד נכתב משמאל לימין
+   הסלקטור: ה-pre שבתוך חלון הקוד */
+.hero-window pre {
+  direction: ltr;
+  text-align: left;
+  margin: 0;
+  padding: 10px 0 4px;
+  color: #c5d5f4;
+  font-size: 0.82rem;
+  line-height: 2;
+  overflow-x: auto;
+}
+
+/* "צביעת תחביר" כמו בעורך קוד: לכל סוג מילה בקוד צבע משלו.
+   .k = מילות מפתח (סגול), .c = שמות פונקציות (ירוק), .s = מחרוזות טקסט (צהוב), .m = הערות (אפור)
+   הסלקטור: אלמנטים עם class="k" בתוך חלון הקוד (וכך גם .c, .s ו-.m שאחריו) */
+.hero-window .k {
+  color: #b994ff;
+}
+
+.hero-window .c {
+  color: #6fd8bf;
+}
+
+.hero-window .s {
+  color: #f1c77b;
+}
+
+.hero-window .m {
+  color: #7d91b3;
+}
+
+/* ---------- כרטיסי קטגוריות ----------
+   h2 + p - הפסקה שבאה מיד אחרי כותרת של section: לא רחבה מדי, ובצבע משני
+   הסלקטור: p שבא מיד אחרי h2, כששניהם ילדים ישירים של section שהוא ילד ישיר של main */
+main > section > h2 + p {
+  max-width: 40em;
+  color: var(--muted);
+}
+
+/* הרשת של ארבעת הכרטיסים: flex עם גלישה
+   הסלקטור: האלמנט עם class="categories" (הרשת של הכרטיסים) */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 2%;
+  margin-top: 26px;
+}
+
+/* כל כרטיס: flex: 1 1 47% - שניים בשורה.
+   flex בעמודה: התמונה למעלה והטקסט מתחתיה.
+   padding: 0 - התמונה מגיעה עד קצוות הכרטיס. overflow: hidden - הפינות של התמונה נחתכות לפי הפינות המעוגלות של הכרטיס
+   הסלקטור: כל article שהוא ילד ישיר של .categories (כל כרטיס) */
+.categories > article {
+  flex: 1 1 47%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+/* במעבר עכבר הכרטיס עולה 5 פיקסלים והמסגרת נצבעת בכחול
+   הסלקטור: כרטיס כזה כשהעכבר מעליו */
+.categories > article:hover {
+  transform: translateY(-5px);
+  border-color: rgba(102, 152, 255, 0.5);
+}
+
+/* aspect-ratio: 16 / 9 - כל התמונות באותו יחס (מלבן רחב).
+   object-fit: cover - התמונה ממלאת את כל המלבן, ומה שלא נכנס נחתך, בלי עיוות
+   הסלקטור: התמונות בתוך הכרטיסים */
+.categories img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* החלק של הטקסט: flex: 1 - תופס את כל הגובה שנשאר בכרטיס. גם הוא flex בעמודה
+   הסלקטור: div שהוא ילד ישיר של כרטיס (החלק של הטקסט) */
+.categories > article > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 24px;
+}
+
+/* הסלקטור: הכותרות בתוך הכרטיסים */
+.categories h3 {
+  margin-bottom: 0.3em;
+}
+
+/* הסלקטור: הפסקאות בתוך הכרטיסים */
+.categories p {
+  color: var(--muted);
+}
+
+/* הסלקטור: רשימות המקצועות בתוך הכרטיסים */
+.categories ul {
+  margin-bottom: 18px;
+  color: #c4d0e5;
+  font-size: 0.95rem;
+}
+
+/* הכפתור: align-self: flex-start - לא נמתח לכל הרוחב.
+   margin-top: auto - נדחף לתחתית הכרטיס, וכך הכפתורים בכל הכרטיסים באותו גובה
+   הסלקטור: הכפתור (.btn) בתוך כל כרטיס */
+.categories .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ---------- ארבע תחנות ----------
+   (שם ה-class זהה לזה שבדפי המקצועות, אבל העיצוב כאן נפרד, כי הקובץ הזה נטען רק בדף הבית)
+   flex עם גלישה, בלי מספרים ובלי הזחה של רשימה
+   הסלקטור: האלמנט עם class="stations" (הרשימה של ארבע התחנות בדף הבית) */
+.stations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 2%;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* כל תחנה: flex: 1 1 22% - ארבע בשורה. min-width: 190px - לא צרה מזה, ואם אין מקום יורדת שורה.
+   border-top: פס צבע בראש התחנה. בתחנה הראשונה כחול
+   הסלקטור: li שהוא ילד ישיר של .stations (כל תחנה) */
+.stations > li {
+  flex: 1 1 22%;
+  min-width: 190px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue);
+  border-radius: 18px;
+}
+
+/* צבע הפס של התחנות 2, 3 ו-4: תכלת, סגול וירוק
+   הסלקטור: li שהוא ילד ישיר של .stations, והילד השני (וכך גם 3 ו-4 שאחריו) */
+.stations > li:nth-child(2) {
+  border-top-color: var(--cyan);
+}
+
+.stations > li:nth-child(3) {
+  border-top-color: var(--purple);
+}
+
+.stations > li:nth-child(4) {
+  border-top-color: var(--green);
+}
+
+/* השעה: display: block - בשורה משלה, מעל הכותרת. גדולה ולבנה
+   הסלקטור: השעה (time) בתוך התחנות */
+.stations time {
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 1.7rem;
+}
+
+/* הסלקטור: כותרות h3 בתוך התחנות */
+.stations h3 {
+  margin-bottom: 0.4em;
+}
+
+/* הסלקטור: פסקאות בתוך התחנות */
+.stations p {
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+/* ---------- פאנל הורדה + CTA ----------
+   flex בשורה: הטקסט בצד אחד והכפתור בצד השני (space-between), ממורכזים לגובה.
+   flex-wrap: wrap - במסך צר הכפתור יורד מתחת לטקסט
+   הסלקטור: כל אלמנט עם class="cta-panel" */
+.cta-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px 4%;
+  padding: 34px;
+  background: linear-gradient(110deg, rgba(32, 57, 108, 0.6), rgba(56, 38, 92, 0.55));
+  border: 1px solid rgba(125, 157, 255, 0.25);
+  border-radius: 24px;
+}
+
+/* הטקסט: flex: 1 1 55% - תופס את רוב השורה
+   הסלקטור: div שהוא ילד ישיר של .cta-panel (החלק של הטקסט) */
+.cta-panel > div {
+  flex: 1 1 55%;
+}
+
+/* הסלקטור: הכותרת בתוך הפאנל */
+.cta-panel h2 {
+  margin-bottom: 6px;
+}
+
+/* הסלקטור: הפסקה בתוך הפאנל */
+.cta-panel p {
+  margin: 0;
+  color: #c1cce0;
+}
+
+/* רווח רק מעל הפאנל השני (פאנל שבא מיד אחרי פאנל)
+   הסלקטור: .cta-panel שבא מיד אחרי .cta-panel אחר (הפאנל השני) */
+.cta-panel + .cta-panel {
+  margin-top: 18px;
+}
+
+/* ---------- אנימציות ----------
+   float: מוגדר רק האמצע (50%). בהתחלה ובסוף הדפדפן משתמש במצב הרגיל של האלמנט,
+   ולכן הכדור עולה 16 פיקסלים, גדל מעט, וחוזר למקומו */
+@keyframes float {
+  50% {
+    transform: translateY(-16px) scale(1.03);
+  }
+}
+
+/* tilt: באמצע האנימציה חלון הקוד פחות מוטה (-2 מעלות במקום -4) וקצת גבוה יותר */
+@keyframes tilt {
+  50% {
+    transform: rotate(-2deg) translateY(-6px);
+  }
+}
+
+/* ---------- רספונסיביות ----------
+   טאבלט: ה-hero עובר לעמודה, והטקסט והאיור תופסים כל אחד שורה שלמה */
+@media (max-width: 900px) {
+  /* הסלקטור: האלמנט עם class="hero" (החלק הפותח של דף הבית) */
+  .hero {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* הסלקטור: גם חלק הטקסט של ה-hero וגם האיור */
+  .hero > div:first-child,
+  .hero-art {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  /* הסלקטור: האלמנט עם class="hero-art" (האיור) */
+  .hero-art {
+    min-height: 330px;
+  }
+}
+
+/* טלפון: כל כרטיס וכל תחנה בשורה משלהם, האיור נמוך יותר ופחות ריווח בפאנלים */
+@media (max-width: 620px) {
+  /* הסלקטור: כל article שהוא ילד ישיר של .categories (כל כרטיס) */
+  .categories > article {
+    flex: 1 1 100%;
+  }
+
+  /* הסלקטור: li שהוא ילד ישיר של .stations (כל תחנה) */
+  .stations > li {
+    flex: 1 1 100%;
+  }
+
+  /* הסלקטור: האלמנט עם class="hero-art" (האיור) */
+  .hero-art {
+    min-height: 280px;
+  }
+
+  /* הסלקטור: כל אלמנט עם class="cta-panel" */
+  .cta-panel {
+    padding: 24px;
+  }
+}

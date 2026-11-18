@@ -1,0 +1,809 @@
+/* ==========================================================
+   style.css - עיצוב משותף לכל דפי האתר TECHDAY
+   כל שמונת הדפים מקושרים לקובץ הזה. כאן נמצא כל מה שחוזר בכמה דפים:
+   משתנים (צבעים), איפוס, כותרת עליונה, תפריט, מבנה הדף, כפתורים, כרטיסים,
+   טבלאות, פס התקדמות, details, כותרת תחתונה ורספונסיביות.
+   עיצוב ששייך לדף אחד בלבד נמצא בקובץ ה-CSS של אותו דף (index.css, about.css וכו').
+   ==========================================================
+  */
+:root {
+  /* --bg: צבע הרקע הכהה של האתר (כחול-לילה). צבע בקוד הקסדצימלי: # ואחריו 6 תווים
+     --panel: רקע הכרטיסים והפאנלים. rgba(אדום, ירוק, כחול, שקיפות): 0.72 = 72% אטום, כך שרואים קצת את הרקע מאחור
+     --line: צבע הקווים והמסגרות הדקות (כמעט שקוף)
+     --muted: צבע לטקסט משני, פחות בולט
+     --text: צבע הטקסט הראשי (כמעט לבן)
+     --blue עד --red: צבעי הדגשה שמשמשים בכל האתר
+     --accent: צבע ההדגשה "הנוכחי". בדפי המקצועות כל מקצוע מחליף אותו בצבע משלו (ב-professions.css) */
+  --bg: #080d1b;
+  --panel: rgba(18, 27, 49, 0.72);
+  --line: rgba(160, 184, 230, 0.16);
+  --muted: #9eacc6;
+  --text: #f5f7ff;
+  --blue: #5794ff;
+  --purple: #a879ff;
+  --cyan: #58d8e8;
+  --green: #48ddb0;
+  --red: #ff7d91;
+  --accent: #5794ff;
+}
+
+/* ---------- איפוס ובסיס ----------
+   * = כל האלמנטים בדף. *::before ו-*::after = גם ה"אלמנטים המדומים" שנוצרים ב-CSS.
+   box-sizing: border-box - הרוחב (width) כולל את ה-padding והמסגרת,
+   כך ש-width: 100% באמת נכנס ברוחב ולא בולט החוצה
+   הסלקטור: כל האלמנטים בדף (*), וגם כל הפסאודו-אלמנטים ::before ו-::after שלהם */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* scroll-behavior: smooth - קפיצה לקישור פנימי (#tracks, #data...) נעשית בגלילה חלקה ולא בבת אחת.
+   scroll-padding-top: 110px - בקפיצה כזו הדפדפן עוצר 110 פיקסלים לפני היעד,
+   כדי שהכותרת העליונה הדביקה לא תסתיר את הכותרת של החלק
+   הסלקטור: התגית html, שעוטפת את כל הדף */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+/* body: ההגדרות הבסיסיות של כל הדף. האלמנטים שבתוכו "יורשים" את הגופן והצבע.
+   margin: 0 - מבטל את השוליים שהדפדפן נותן ל-body כברירת מחדל.
+   min-height: 100vh - גובה מינימלי של כל המסך (vh = אחוז מגובה המסך).
+   display: flex + flex-direction: column - הכותרת, התוכן והכותרת התחתונה זה מתחת לזה.
+   יחד עם flex: 1 של .wrapper, הכותרת התחתונה תמיד בתחתית המסך, גם בדף קצר
+   הסלקטור: התגית body, שמכילה את כל מה שמוצג בדף */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* הרקע בנוי משלוש שכבות, מופרדות בפסיק (הראשונה למעלה):
+     שני כתמי אור (radial-gradient - מעבר צבעים עגול מהמרכז החוצה), אחד כחול ואחד סגול,
+     ומתחתיהם צבע הרקע הבסיסי. ellipse at 12% 8% = כתם אליפטי שמרכזו ב-12% מהרוחב וב-8% מהגובה */
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(57, 91, 191, 0.22), transparent 38%),
+    radial-gradient(ellipse at 92% 45%, rgba(117, 57, 184, 0.18), transparent 40%),
+    var(--bg);
+  /* background-attachment: fixed - הרקע לא זז בגלילה, והתוכן "מחליק" מעליו */
+  background-attachment: fixed;
+  color: var(--text);
+  /* font-family: הגופן Heebo, ואחריו גופני גיבוי (Arial, ואז כל גופן בלי תגים) אם הוא לא נטען.
+     font-size: 1rem - rem הוא יחסית לגודל הגופן של הדפדפן (בדרך כלל 16 פיקסלים).
+     line-height: 1.75 - גובה שורה פי 1.75 מגודל האות, נוח לקריאה */
+  font-family: "Heebo", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* כל התמונות:
+   max-width: 100% - תמונה אף פעם לא רחבה מהאלמנט שמכיל אותה.
+   height: auto - הגובה משתנה יחד עם הרוחב, כדי שהתמונה לא תתעוות.
+   display: block - מבטל רווח קטן שנוצר מתחת לתמונה, כי תמונה היא inline כברירת מחדל
+   הסלקטור: כל התמונות באתר */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* צבע הקישורים. a:hover - כשהעכבר מעל קישור, הוא נצבע לבן
+   הסלקטור: כל הקישורים באתר */
+a {
+  color: #a9c7ff;
+}
+
+/* הסלקטור: קישור שהעכבר נמצא מעליו (:hover) */
+a:hover {
+  color: #fff;
+}
+
+/* כמה סלקטורים מופרדים בפסיק = אותו עיצוב לכולם.
+   margin: 0 0 0.6em - למעלה, צדדים, למטה. em הוא יחסית לגודל הגופן של האלמנט עצמו
+   הסלקטור: כל הכותרות מ-h1 עד h4 (רשימה מופרדת בפסיקים) */
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+
+/* clamp(מינימום, מועדף, מקסימום): גודל גופן שגדל עם רוחב המסך.
+   5.4vw = 5.4% מרוחב המסך, אבל לא פחות מ-2.1rem ולא יותר מ-3.9rem.
+   font-weight: 900 - העובי הכי שמן. letter-spacing שלילי - אותיות צפופות יותר
+   הסלקטור: כל הכותרות הראשיות h1 */
+h1 {
+  font-size: clamp(2.1rem, 5.4vw, 3.9rem);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+/* גם h2 משתמש ב-clamp, בטווח קטן יותר
+   הסלקטור: כל כותרות המשנה h2 */
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+}
+
+/* הסלקטור: כל הכותרות h3 */
+h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* הסלקטור: כל הפסקאות */
+p {
+  margin: 0 0 1em;
+}
+
+/* padding-inline-start: הריווח בתחילת השורה, בשביל הנקודות או המספרים של הרשימה.
+   "inline-start" הוא תכונה לוגית: בדף מימין לשמאל ההתחלה היא בצד ימין, ובאנגלית בצד שמאל
+   הסלקטור: כל הרשימות: לא ממוספרות (ul) וממוספרות (ol) */
+ul,
+ol {
+  margin: 0 0 1em;
+  padding-inline-start: 1.4em;
+}
+
+/* ---------- כותרת עליונה (header) ----------
+   body > header - רק header שהוא ילד ישיר של body (ולא header שבתוך main או article).
+   position: sticky + top: 0 - הכותרת נשארת דבוקה לראש המסך בזמן גלילה.
+   z-index: 100 - "שכבה" גבוהה, כדי שהתוכן ייגלל מתחת לכותרת ולא מעליה.
+   flex בשורה: align-items: center ממרכז לגובה, justify-content: space-between
+   דוחף את הלוגו לקצה אחד ואת התפריט לקצה השני, ו-flex-wrap מוריד את התפריט לשורה חדשה כשאין מקום.
+   gap: 10px 3% - רווח של 10 פיקסלים בין שורות, ו-3% בין הפריטים בשורה.
+   backdrop-filter: blur(16px) - מטשטש את מה שנגלל מתחת לכותרת, כמו זכוכית חלבית
+   הסלקטור: header שהוא ילד ישיר של body, כלומר הכותרת העליונה של האתר (ולא header שבתוך main) */
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 3%;
+  padding: 12px 5%;
+  background: rgba(7, 12, 26, 0.86);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* הקישור לדף הבית (לוגו + שם האתר): flex בשורה, ממורכז לגובה.
+   text-decoration: none - בלי קו תחתון
+   הסלקטור: קישור שהוא ילד ישיר של הכותרת העליונה: הקישור של הלוגו לדף הבית (ולא הקישורים שבתוך nav) */
+body > header > a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+/* הלוגו: פינות מעוגלות (border-radius) והילה כחולה (box-shadow: הזזה לצד, הזזה למטה, טשטוש, צבע)
+   הסלקטור: התמונה (הלוגו) שבתוך הקישור לדף הבית */
+body > header > a img {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  box-shadow: 0 7px 25px rgba(77, 112, 216, 0.4);
+}
+
+/* החלק DAY בשם האתר בצבע כחול
+   הסלקטור: ה-span שבתוך הקישור לדף הבית, כלומר המילה DAY */
+body > header > a span {
+  color: #8daeff;
+}
+
+/* ---------- תפריט ניווט (nav) ----------
+   חל על שני התפריטים: בכותרת העליונה ובכותרת התחתונה.
+   הרשימה היא flex עם גלישה: הקישורים בשורה, ויורדים לשורה הבאה כשאין מקום.
+   list-style: none - בלי נקודות. margin ו-padding: 0 - מבטלים את ההזחה של הרשימה
+   הסלקטור: רשימה שנמצאת בתוך nav (בשני התפריטים) */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* כל קישור בתפריט נראה כמו כפתור מעוגל:
+   display: block - הקישור תופס את כל שטח הכפתור, ולא רק את הטקסט.
+   border: 1px solid transparent - מסגרת שקופה. כשהיא נצבעת ב-hover הכפתור לא "קופץ", כי היא כבר תופסת מקום.
+   border-radius: 999px - ערך גדול מאוד, שהופך את הכפתור לצורת "גלולה".
+   transition - כשהרקע, המסגרת או הצבע משתנים, השינוי קורה בהדרגה במשך 0.25 שניות
+   הסלקטור: כל קישור שנמצא בתוך nav */
+nav a {
+  display: block;
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #c0cbe0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+/* :hover - כשהעכבר מעל הקישור. :focus-visible - כשמגיעים לקישור עם המקלדת (Tab)
+   הסלקטור: קישור בתפריט שהעכבר מעליו (:hover), או שהגיעו אליו עם המקלדת (:focus-visible) */
+nav a:hover,
+nav a:focus-visible {
+  color: #fff;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* סלקטור תכונה: קישור שיש לו aria-current="page", כלומר הקישור לדף הנוכחי. הוא מודגש בכחול
+   הסלקטור: קישור בתפריט שיש לו התכונה aria-current עם הערך "page", כלומר הקישור לדף הנוכחי */
+nav a[aria-current="page"] {
+  color: #fff;
+  background: rgba(71, 127, 245, 0.25);
+  border-color: rgba(102, 152, 255, 0.5);
+}
+
+/* ---------- מבנה מרכזי: main + aside ----------
+   flex: 1 - בתוך ה-body (שהוא flex בעמודה) העוטף "גדל" ותופס את כל הגובה הפנוי.
+   display: flex - main ו-aside זה לצד זה.
+   align-items: flex-start - שניהם מתחילים למעלה ולא נמתחים לאותו גובה (בלי זה ה-sticky של aside לא היה עובד).
+   width: 92% + max-width: 1240px + margin: 0 auto - רוחב יחסי, לא רחב מדי במסך גדול, וממורכז
+   הסלקטור: האלמנט עם class="wrapper" (ה-div שעוטף את main ואת aside) */
+.wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 3%;
+  width: 92%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 44px 0 80px;
+}
+
+/* flex: 1 1 70% - קיצור של שלוש תכונות:
+   flex-grow: 1 (מותר לגדול), flex-shrink: 1 (מותר להתכווץ), flex-basis: 70% (הרוחב שממנו מתחילים).
+   min-width: 0 - מאפשר ל-main להיות צר מהתוכן שלו. בלי זה טבלה רחבה או קוד ארוך היו מרחיבים אותו מעבר למסך
+   הסלקטור: התגית main, התוכן המרכזי של הדף */
+main {
+  flex: 1 1 70%;
+  min-width: 0;
+}
+
+/* כל section ו-article שהם ילדים ישירים של main: רווח מתחתיהם, ואנימציית כניסה.
+   animation: fade-up 0.7s ease both - מפעיל את האנימציה fade-up (מוגדרת בסוף הקובץ) במשך 0.7 שניות.
+   ease: מתחיל ומסתיים לאט. both: לפני שהאנימציה מתחילה האלמנט כבר במצב ההתחלה (שקוף),
+   ואחרי שהיא נגמרת הוא נשאר במצב הסיום
+   הסלקטור: כל section וכל article שהם ילדים ישירים של main */
+main > section,
+main > article {
+  margin-bottom: 56px;
+  animation: fade-up 0.7s ease both;
+}
+
+/* :nth-of-type(2) - ה-section השני מבין ה-section שבתוך main.
+   animation-delay מעכב את האנימציה שלו קצת, וכך החלקים מופיעים בזה אחר זה ולא כולם יחד
+   הסלקטור: ה-section השני מבין ה-section שהם ילדים ישירים של main */
+main > section:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+/* הסלקטור: ה-section השלישי מבין ה-section שהם ילדים ישירים של main */
+main > section:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+
+/* aside: התפריט הצדדי.
+   flex: 0 0 24% - לא גדל ולא מתכווץ: תמיד 24% מהרוחב.
+   position: sticky + top: 100px - נשאר על המסך בזמן גלילה, 100 פיקסלים מלמעלה (מתחת לכותרת העליונה)
+   הסלקטור: התגית aside, התפריט הצדדי */
+aside {
+  flex: 0 0 24%;
+  position: sticky;
+  top: 100px;
+  padding: 20px 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+/* הסלקטור: כותרות h2 שבתוך aside */
+aside h2 {
+  font-size: 1.1rem;
+}
+
+/* רשימת הקישורים בתפריט הצדדי: בלי נקודות ובלי הזחה
+   הסלקטור: רשימות שבתוך aside */
+aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ~ (סלקטור אחים כללי): כל h2 שבא אחרי h2 אחר בתוך aside, לא חייב מיד אחריו.
+   כך יש רווח מעל הכותרת השנייה ("מסלולים נוספים"), ולא מעל הראשונה
+   הסלקטור: h2 בתוך aside שיש לפניו h2 אחר (כלומר כל h2 חוץ מהראשון) */
+aside h2 ~ h2 {
+  margin-top: 26px;
+}
+
+/* + (אח צמוד): p שבא מיד אחרי ul. זה הקישור להורדת המדריך בתחתית התפריט
+   הסלקטור: p בתוך aside שבא מיד אחרי ul */
+aside ul + p {
+  margin-top: 18px;
+}
+
+/* li + li: כל פריט שבא אחרי פריט אחר, כלומר כולם חוץ מהראשון. רווח רק בין הפריטים
+   הסלקטור: li בתוך aside שבא מיד אחרי li אחר (כלומר כל פריט חוץ מהראשון ברשימה) */
+aside li + li {
+  margin-top: 4px;
+}
+
+/* כל קישור בתפריט הצדדי תופס שורה שלמה (display: block), וב-hover מקבל רקע בהיר
+   הסלקטור: קישורים שבתוך פריטי רשימה ב-aside */
+aside li a {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #c0cbe0;
+  text-decoration: none;
+}
+
+/* הסלקטור: קישור כזה כשהעכבר מעליו */
+aside li a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+/* ---------- רכיבים משותפים ----------
+   .eyebrow: התווית הקטנה מעל הכותרות. נקודה לפני השם = סלקטור של class.
+   display: inline-block - נשארת ברוחב הטקסט שלה, אבל מקבלת padding ו-margin כמו בלוק
+   הסלקטור: כל אלמנט עם class="eyebrow" */
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 4px 14px;
+  color: #a9c7ff;
+  background: rgba(79, 135, 255, 0.1);
+  border: 1px solid rgba(94, 146, 255, 0.28);
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* פסקת הפתיחה. max-width: 40em - שורות לא ארוכות מדי, נוח לקריאה
+   הסלקטור: כל אלמנט עם class="lead" */
+.lead {
+  max-width: 40em;
+  color: #b8c4da;
+  font-size: 1.12rem;
+}
+
+/* .btn: כפתור. משמש גם לקישורים (a) וגם לכפתורים אמיתיים (button) בטופס.
+   font: inherit - כפתורים לא יורשים את הגופן של הדף כברירת מחדל, ו-inherit מכריח אותם לרשת.
+   cursor: pointer - סמן של "יד" כשעוברים עליו
+   הסלקטור: כל אלמנט עם class="btn" (קישורים וכפתורים) */
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  color: #e8efff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+/* במעבר עכבר: translateY(-2px) מרים את הכפתור 2 פיקסלים, ו-brightness(1.15) מבהיר אותו ב-15%
+   הסלקטור: כפתור .btn כשהעכבר מעליו */
+.btn:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+/* .btn.primary (בלי רווח) - אלמנט שיש לו גם class="btn" וגם class="primary": הכפתור הבולט.
+   linear-gradient(110deg, ...) - מעבר צבעים בקו ישר, בזווית של 110 מעלות, מכחול לסגול
+   הסלקטור: אלמנט שיש לו גם class="btn" וגם class="primary" (שתי מחלקות צמודות, בלי רווח) */
+.btn.primary {
+  border-color: transparent;
+  background: linear-gradient(110deg, #377df5, #8059ed);
+  box-shadow: 0 8px 26px rgba(91, 101, 231, 0.3);
+}
+
+/* קבוצת כפתורים: flex בשורה עם גלישה ורווח ביניהם
+   הסלקטור: כל אלמנט עם class="buttons" */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 0;
+}
+
+/* .card: הכרטיס המשותף (בדף הבית ובדף האודות): רקע שקוף למחצה, מסגרת דקה, פינות מעוגלות וצל רך
+   הסלקטור: כל אלמנט עם class="card" */
+.card {
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.14);
+}
+
+/* mark: הדגשה כמו במרקר, כאן ברקע כחול שקוף ובפינות מעוגלות
+   הסלקטור: כל התגיות mark */
+mark {
+  padding: 1px 9px;
+  color: #dce8ff;
+  background: rgba(71, 127, 245, 0.25);
+  border-radius: 8px;
+}
+
+/* כל השעות (time) בגופן Fira Code. אם הוא לא נטען: Courier New, ואז כל גופן ברוחב קבוע (monospace)
+   הסלקטור: כל התגיות time */
+time {
+  font-family: "Fira Code", "Courier New", monospace;
+  font-weight: 600;
+}
+
+/* סלקטור תכונה: abbr שיש לו title. קו תחתון מנוקד, וסמן של סימן שאלה (help),
+   כדי שיהיה ברור שאפשר לעמוד עליו ולראות את הפירוש
+   הסלקטור: abbr שיש לו התכונה title (סלקטור תכונה) */
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* קוד ומקשים בגופן ברוחב קבוע, כמו בעורך קוד
+   הסלקטור: כל התגיות code, pre ו-kbd */
+code,
+pre,
+kbd {
+  font-family: "Fira Code", "Courier New", monospace;
+}
+
+/* קישור לקובץ PDF מקבל אייקון אוטומטית.
+   $= פירושו "מסתיים ב-": כל קישור שהכתובת שלו מסתיימת ב-.pdf.
+   ::before מוסיף תוכן (content) לפני הטקסט של הקישור, בלי לכתוב אותו ב-HTML
+   הסלקטור: הפסאודו-אלמנט ::before של כל קישור שה-href שלו מסתיים ב-.pdf */
+a[href$=".pdf"]::before {
+  content: "📄 ";
+}
+
+/* קישור חיצוני מקבל חץ.
+   ^= פירושו "מתחיל ב-": כל קישור שמתחיל ב-http הוא קישור לאתר אחר. ::after מוסיף את החץ אחרי הטקסט
+   הסלקטור: הפסאודו-אלמנט ::after של כל קישור שה-href שלו מתחיל ב-http */
+a[href^="http"]::after {
+  content: " ↖";
+  font-size: 0.85em;
+}
+
+/* ---------- טבלאות ----------
+   העוטף של הטבלה. overflow-x: auto - אם הטבלה רחבה מהמסך, מופיע פס גלילה לרוחב.
+   המסגרת והפינות המעוגלות כאן, כי קשה לעגל פינות לטבלה עצמה
+   הסלקטור: האלמנט עם class="table-wrap" (העוטף של הטבלה) */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+/* border-collapse: collapse - המסגרות של תאים סמוכים מתאחדות לקו אחד, במקום שני קווים צמודים
+   הסלקטור: כל הטבלאות */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+}
+
+/* caption-side: bottom - הכיתוב מוצג מתחת לטבלה ולא מעליה.
+   text-align: start - מיושר לתחילת השורה (בעברית: ימין)
+   הסלקטור: כל הכיתובים של טבלאות */
+caption {
+  padding: 12px 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: start;
+  caption-side: bottom;
+}
+
+/* כל התאים: ריווח פנימי, יישור לתחילת השורה (th ממורכז כברירת מחדל), וקו מפריד מתחת לכל שורה
+   הסלקטור: כל התאים בטבלה: תאי כותרת (th) ותאים רגילים (td) */
+th,
+td {
+  padding: 12px 16px;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+}
+
+/* תאי הכותרת בשורה העליונה: רקע כחול ומודגשים
+   הסלקטור: תאי כותרת שנמצאים בתוך thead (השורה העליונה) */
+thead th {
+  color: #dce8ff;
+  background: rgba(71, 127, 245, 0.18);
+  font-weight: 700;
+}
+
+/* even = שורות זוגיות (2, 4...). רקע בהיר מעט בכל שורה שנייה ("פסי זברה"), כדי שיהיה קל לעקוב אחרי שורה
+   הסלקטור: שורות זוגיות (even) בתוך tbody */
+tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* השורה שהעכבר מעליה נצבעת בכחול חלש
+   הסלקטור: שורה בתוך tbody כשהעכבר מעליה */
+tbody tr:hover {
+  background: rgba(71, 127, 245, 0.1);
+}
+
+/* > * = כל הילדים הישירים (th ו-td) של השורה האחרונה: בלי קו תחתון, כי לעוטף כבר יש מסגרת
+   הסלקטור: כל הילדים הישירים (*) של השורה האחרונה ב-tbody */
+tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* ---------- פס התקדמות <progress> ----------
+   appearance: none - מבטל את העיצוב המובנה של הדפדפן, כדי שאפשר יהיה לעצב את הפס בעצמנו.
+   -webkit-appearance - אותה תכונה עם "קידומת" לדפדפנים Chrome, Edge ו-Safari.
+   overflow: hidden + border-radius - הפס כולו מעוגל, והחלק הצבוע לא בולט מהפינות
+   הסלקטור: כל פסי ההתקדמות */
+progress {
+  width: 100%;
+  height: 8px;
+  border: 0;
+  border-radius: 99px;
+  overflow: hidden;
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* לכל דפדפן יש "אלמנטים מדומים" משלו לחלקי הפס:
+   ::-webkit-progress-bar - המסילה הריקה (Chrome, Edge, Safari)
+   ::-webkit-progress-value - החלק המלא (Chrome, Edge, Safari)
+   ::-moz-progress-bar - החלק המלא (Firefox)
+   הם כתובים בכללים נפרדים, כי אם דפדפן לא מכיר סלקטור אחד ברשימה, הוא מתעלם מכל הכלל
+   הסלקטור: המסילה הריקה של פס ההתקדמות, ב-Chrome, Edge ו-Safari */
+progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* הסלקטור: החלק המלא של פס ההתקדמות, ב-Chrome, Edge ו-Safari */
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 99px;
+}
+
+/* הסלקטור: החלק המלא של פס ההתקדמות, ב-Firefox */
+progress::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  border-radius: 99px;
+}
+
+/* ---------- details / summary ----------
+   התיבה שנפתחת ונסגרת: מסגרת דקה, פינות מעוגלות ורקע בהיר מעט
+   הסלקטור: כל התגיות details */
+details {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* רווח בין שתי תיבות details צמודות (בשאלות הנפוצות)
+   הסלקטור: details שבא מיד אחרי details אחר */
+details + details {
+  margin-top: 10px;
+}
+
+/* summary: השורה שלוחצים עליה. cursor: pointer - סמן של "יד".
+   list-style: none - מבטל את המשולש שהדפדפן מוסיף לפני summary
+   הסלקטור: כל התגיות summary */
+summary {
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* ב-Safari המשולש הוא אלמנט מדומה נפרד, ולכן מסתירים גם אותו
+   הסלקטור: המשולש ש-Safari מצייר לפני summary */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* במקום המשולש: סימן ＋ בכחול לפני הטקסט.
+   margin-inline-end: רווח בסוף הסימן (בעברית: בצד שמאל שלו, בינו לבין הטקסט)
+   הסלקטור: הפסאודו-אלמנט ::before של summary (תוכן לפני הטקסט) */
+summary::before {
+  content: "＋";
+  display: inline-block;
+  margin-inline-end: 10px;
+  color: var(--blue);
+  transition: transform 0.25s;
+}
+
+/* כשהתיבה פתוחה, הדפדפן מוסיף ל-details את התכונה open.
+   הסלקטור details[open] תופס את המצב הזה, והסימן מתחלף ל-－
+   הסלקטור: ה-::before של summary שנמצא ישר בתוך details פתוח (שיש לו התכונה open) */
+details[open] > summary::before {
+  content: "－";
+}
+
+/* :not(summary) - כל ילד ישיר של details חוץ מ-summary (כלומר התוכן שנפתח): ריווח בצדדים
+   הסלקטור: כל ילד ישיר של details שאינו summary */
+details > :not(summary) {
+  margin-inline: 18px;
+}
+
+/* הילד האחרון בתיבה: רווח מתחתיו, כדי שהתוכן לא ייגע במסגרת
+   הסלקטור: הילד הישיר האחרון של details */
+details > :last-child {
+  margin-bottom: 18px;
+}
+
+/* ---------- כותרת תחתונה (footer) ----------
+   flex בשורה עם space-between: זכויות היוצרים בצד אחד והקישורים בצד השני.
+   flex-wrap: wrap - במסך צר הקישורים יורדים לשורה משלהם
+   הסלקטור: footer שהוא ילד ישיר של body, כלומר הכותרת התחתונה */
+body > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 3%;
+  padding: 22px 5%;
+  color: #7f90ad;
+  font-size: 0.9rem;
+  background: rgba(7, 12, 26, 0.7);
+  border-top: 1px solid var(--line);
+}
+
+/* הסלקטור: פסקאות בתוך הכותרת התחתונה */
+body > footer p {
+  margin: 0;
+}
+
+/* הקישורים בכותרת התחתונה קטנים יותר מהתפריט העליון
+   הסלקטור: קישורים בתוך ה-nav של הכותרת התחתונה */
+body > footer nav a {
+  padding: 2px 10px;
+  font-size: 0.9rem;
+}
+
+/* ---------- כפתור חזרה לראש הדף ----------
+   position: fixed - ממוקם ביחס למסך עצמו ולא לדף, ולכן נשאר בפינה גם כשגוללים.
+   bottom ו-left: 22px - 22 פיקסלים מהתחתית ומהצד השמאלי.
+   z-index: 90 - מעל התוכן, אבל מתחת לכותרת העליונה (100).
+   display: flex + center - החץ באמצע הכפתור.
+   width ו-height שווים + border-radius: 50% - הריבוע הופך לעיגול
+   הסלקטור: האלמנט עם class="to-top" (כפתור החזרה לראש הדף) */
+.to-top {
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  background: linear-gradient(135deg, #377df5, #8059ed);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(55, 125, 245, 0.45);
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: transform 0.2s;
+}
+
+/* במעבר עכבר הכפתור עולה 4 פיקסלים
+   הסלקטור: כפתור החזרה כשהעכבר מעליו */
+.to-top:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- אנימציות ----------
+   @keyframes מגדיר אנימציה בשם fade-up: מאיפה מתחילים (from) ולאן מגיעים (to).
+   האלמנט מתחיל שקוף (opacity: 0) ו-20 פיקסלים נמוך יותר, ו"עולה" למקומו כשהוא נעשה גלוי */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- רספונסיביות ----------
+   @media (max-width: 900px) - הכללים בפנים פועלים רק כשרוחב המסך 900 פיקסלים או פחות (טאבלט).
+   main ו-aside עוברים לעמודה, ו-aside מפסיק להיות sticky (position: static), כי עכשיו הוא מתחת לתוכן.
+   הכותרת העליונה ממורכזת */
+@media (max-width: 900px) {
+  /* הסלקטור: האלמנט עם class="wrapper" (ה-div שעוטף את main ואת aside) */
+  .wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* הסלקטור: גם main וגם aside */
+  main,
+  aside {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  /* הסלקטור: התגית aside, התפריט הצדדי */
+  aside {
+    position: static;
+  }
+
+  /* הסלקטור: header שהוא ילד ישיר של body, כלומר הכותרת העליונה של האתר (ולא header שבתוך main) */
+  body > header {
+    justify-content: center;
+  }
+}
+
+/* טלפון: 620 פיקסלים או פחות. פחות ריווח, התפריט והכותרת התחתונה ממורכזים,
+   וכל כפתור (.btn) ברוחב מלא, כדי שיהיה נוח ללחוץ עליו באצבע */
+@media (max-width: 620px) {
+  /* הסלקטור: האלמנט עם class="wrapper" (ה-div שעוטף את main ואת aside) */
+  .wrapper {
+    padding: 28px 0 60px;
+  }
+
+  /* הסלקטור: header שהוא ילד ישיר של body, כלומר הכותרת העליונה של האתר (ולא header שבתוך main) */
+  body > header {
+    padding: 10px 4%;
+  }
+
+  /* הסלקטור: רשימה שנמצאת בתוך nav (בשני התפריטים) */
+  nav ul {
+    justify-content: center;
+  }
+
+  /* הסלקטור: כל קישור שנמצא בתוך nav */
+  nav a {
+    padding: 5px 11px;
+    font-size: 0.88rem;
+  }
+
+  /* הסלקטור: footer שהוא ילד ישיר של body, כלומר הכותרת התחתונה */
+  body > footer {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* הסלקטור: כל אלמנט עם class="btn" (קישורים וכפתורים) */
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* prefers-reduced-motion: משתמשים שביקשו במערכת ההפעלה פחות תנועה (למשל בגלל סחרחורת).
+   אצלם מבטלים את כל האנימציות, המעברים והגלילה החלקה.
+   !important - הכלל הזה גובר על כל כלל אחר, גם אם הוא ספציפי יותר */
+@media (prefers-reduced-motion: reduce) {
+  /* הסלקטור: התגית html, שעוטפת את כל הדף */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* הסלקטור: כל האלמנטים בדף (*), וגם כל הפסאודו-אלמנטים ::before ו-::after שלהם */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

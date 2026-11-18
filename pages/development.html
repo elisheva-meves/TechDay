@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: מודיע לדפדפן שזה מסמך HTML5, כדי שיציג אותו לפי התקן העדכני -->
+<!-- html: התגית שעוטפת את כל הדף.
+     lang="he": שפת הדף עברית (עוזר לקוראי מסך, למנועי חיפוש ולתרגום אוטומטי).
+     dir="rtl": כיוון הכתיבה מימין לשמאל, כך שכל הדף "מתחיל" מצד ימין -->
+<html lang="he" dir="rtl">
+<!-- ===== head: מידע על הדף. שום דבר כאן לא מוצג בתוך הדף עצמו ===== -->
+<head>
+<meta charset="UTF-8">
+<!-- meta charset: קידוד התווים. UTF-8 מאפשר להציג עברית, אימוג'י וסימנים מיוחדים בלי ג'יבריש.
+     השורה הזו חייבת להיות בתחילת ה-head -->
+<!-- viewport: חובה לאתר רספונסיבי. אומר לטלפון להציג את הדף ברוחב המסך האמיתי
+     (width=device-width) ובלי הגדלה התחלתית (initial-scale=1.0), ולא "להקטין" אתר של מחשב.
+     בלי השורה הזו ה-media queries ב-CSS לא יעבדו נכון בטלפון -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- meta description: תיאור קצר של הדף. לא מוצג בדף, אבל גוגל מציג אותו
+     מתחת לכותרת בתוצאות החיפוש. לכל דף תיאור משלו (קידום אתרים, SEO) -->
+<meta name="description" content="יום בחייהם של אנשי מקצועות פיתוח בהייטק: תחנות היום, משימות, כלים ודוגמאות קוד.">
+<!-- theme-color: צבע שורת הכתובת של הדפדפן בטלפון. זה אותו צבע כחול-לילה של רקע האתר -->
+<meta name="theme-color" content="#080d1b">
+<!-- title: הכותרת שמופיעה בלשונית של הדפדפן ובתוצאות החיפוש של גוגל.
+     המבנה בכל הדפים זהה: שם הדף, קו אנכי ושם האתר -->
+<title>פיתוח | TECHDAY</title>
+<!-- favicon: האייקון הקטן שמופיע בלשונית ליד הכותרת.
+     הדף נמצא בתיקיית pages, ולכן ../ "עולה" תיקייה אחת למעלה, לתיקייה הראשית של האתר -->
+<link rel="icon" href="../favicon.ico" type="image/x-icon">
+<!-- preconnect: "מתחבר מראש" לשרתים של Google Fonts, עוד לפני שמבקשים מהם את הגופנים,
+     וכך הגופנים נטענים מהר יותר.
+     בשורה השנייה יש crossorigin, כי קובצי הגופן עצמם מורדים משרת אחר (fonts.gstatic.com) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- טעינת הגופנים מ-Google Fonts (שניהם תומכים בעברית):
+     Heebo - הגופן של כל הטקסט באתר. wght@300;400;...;900: העוביים שמורידים, מדק מאוד ועד שמן מאוד
+     Fira Code - גופן "מכונת כתיבה" (כל התווים באותו רוחב), לקוד ולשעות.
+     &amp; בכתובת הוא הדרך לכתוב את התו & בתוך HTML (הוא מפריד בין שני הגופנים).
+     display=swap: עד שהגופן נטען מוצג גופן גיבוי, כדי שהטקסט לא יהיה שקוף בזמן הטעינה -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;family=Fira+Code:wght@400;500;600&amp;display=swap">
+<!-- קובץ העיצוב המשותף לכל הדפים: צבעים, גופנים, כותרת עליונה, תפריט, כפתורים, טבלאות וכותרת תחתונה -->
+<link rel="stylesheet" href="../css/style.css">
+<!-- קובץ העיצוב של דפי המקצועות (אותו קובץ לארבעת דפי המסלולים) בלבד. הוא נטען אחרי style.css,
+     ולכן כלל כאן יכול "לדרוס" כלל משותף עם אותו סלקטור -->
+<link rel="stylesheet" href="../css/professions.css">
+</head>
+<!-- ===== body: כל מה שמוצג בדף ===== -->
+<body>
+<!-- ===== header: הכותרת העליונה. זהה בכל דפי האתר =====
+     ב-CSS (style.css) היא "דביקה" (position: sticky): נשארת בראש המסך בזמן גלילה.
+     היא גם flex בשורה: הלוגו בצד אחד והתפריט בצד השני (justify-content: space-between).
+     ב-CSS כתוב body > header - רק header שהוא ילד ישיר של body, ולא ה-header שבתוך main -->
+<header>
+  <!-- הלוגו ושם האתר עטופים בקישור אחד לדף הבית, כך שלחיצה על כל אחד מהם מחזירה לדף הבית -->
+  <a href="../index.html">
+    <!-- img: תמונת הלוגו (קובץ SVG - תמונה וקטורית שנשארת חדה בכל גודל).
+         alt: טקסט חלופי, שקורא מסך מקריא לעיוורים ושמוצג אם התמונה לא נטענת.
+         width ו-height: המידות של התמונה. הדפדפן שומר לה מקום מראש, והדף לא "קופץ" כשהיא נטענת -->
+    <img src="../assets/images/logo.svg" alt="לוגו TECHDAY - לחיצה מובילה לדף הבית" width="40" height="40">
+    <!-- strong: שם האתר, מודגש. החלק DAY עטוף ב-span, כדי שב-CSS יקבל צבע אחר (כחול) -->
+    <strong>TECH<span>DAY</span></strong>
+  </a>
+  <!-- nav: תגית סמנטית לתפריט ניווט. בתוכה רשימה לא ממוספרת (ul), וכל פריט (li) הוא קישור לדף.
+       aria-label: שם לתפריט בשביל קוראי מסך, כי יש באתר שני תפריטים (גם בכותרת התחתונה).
+       ב-CSS הרשימה היא flex עם גלישה (flex-wrap), והקישורים נראים כמו כפתורים מעוגלים.
+       הדפים האחרים נמצאים באותה תיקייה (pages), ולכן מספיק לכתוב את שם הקובץ.
+       לדף הבית צריך לעלות תיקייה אחת: ../index.html -->
+  <nav aria-label="תפריט ראשי">
+    <ul>
+      <li><a href="../index.html">דף הבית</a></li>
+      <!-- aria-current="page": מסמן שזה הקישור לדף שבו נמצאים עכשיו.
+           קורא מסך מודיע "הדף הנוכחי", וה-CSS מדגיש אותו בעזרת סלקטור תכונה: nav a[aria-current="page"] -->
+      <li><a href="development.html" aria-current="page">פיתוח</a></li>
+      <li><a href="infrastructure.html">תשתיות ואבטחה</a></li>
+      <li><a href="data-ai.html">נתונים ו-AI</a></li>
+      <li><a href="product-design.html">מוצר ועיצוב</a></li>
+      <li><a href="about.html">אודות</a></li>
+      <li><a href="order.html">הרשמה</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== div.wrapper: העוטף של התוכן המרכזי =====
+     main מימין ו-aside (התפריט הצדדי) משמאל, זה לצד זה (flex בשורה).
+     במסך צר מ-900 פיקסלים הם עוברים לעמודה, ו-aside יורד מתחת לתוכן.
+     ב-CSS יש לו flex: 1, ולכן הוא תופס את כל הגובה הפנוי ודוחף את הכותרת התחתונה לתחתית המסך גם כשהדף קצר -->
+<div class="wrapper">
+<!-- ===== main: התוכן המרכזי והייחודי של הדף. יש רק main אחד בכל דף ===== -->
+<main>
+  <!-- header בתוך main: הפתיח של הדף (תווית, כותרת ראשית ופסקת פתיחה).
+       ב-CSS כתוב main > header, ולכן העיצוב שלו נפרד מהכותרת העליונה של האתר (body > header).
+       &middot; בתווית היא ישות HTML שמציגה נקודה באמצע השורה (·) -->
+  <header>
+    <span class="eyebrow">מסלול &middot; 4 מקצועות</span>
+    <h1>פיתוח</h1>
+    <p class="lead">בונים את המוצר: שרתים, ממשקים ואיכות. ארבעה תפקידי פיתוח, ולכל אחד יום עבודה אחר.</p>
+  </header>
+
+  <!-- ===== טבלת סיכום: כל המקצועות במסלול במבט אחד ===== -->
+  <section>
+    <h2>המקצועות במסלול במבט מהיר</h2>
+    <!-- div.table-wrap: עוטף את הטבלה. ב-CSS יש לו overflow-x: auto,
+         ולכן בטלפון אפשר לגלול את הטבלה לצדדים במקום שהיא תבלוט מהמסך -->
+    <div class="table-wrap">
+      <!-- מבנה הטבלה:
+           caption - הסבר לטבלה (מוצג מתחתיה). thead - שורת הכותרות. tbody - שורות התוכן
+           tr - שורה. th - תא כותרת. td - תא רגיל
+           scope="col" - כותרת של עמודה, scope="row" - כותרת של שורה (עוזר לקוראי מסך) -->
+      <table>
+        <caption>לחיצה על שם המקצוע מובילה לפירוט יום העבודה שלו.</caption>
+        <thead>
+          <tr><th scope="col">מקצוע</th><th scope="col">תחום</th><th scope="col">כלים</th><th scope="col">תחילת היום</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- שם המקצוע הוא קישור פנימי: href="#..." קופץ לכרטיס של המקצוע באותו דף (לפי ה-id שלו) -->
+            <th scope="row"><a href="#backend">מפתח/ת Backend</a></th>
+            <td>שרתים, APIs ולוגיקה עסקית</td>
+            <!-- mark: סימון כמו במרקר. כאן הוא מדגיש את הכלים העיקריים של המקצוע -->
+            <td><mark>C# / .NET</mark></td>
+            <!-- time: שעת תחילת היום. datetime: השעה בפורמט שמחשב מבין -->
+            <td><time datetime="08:00">08:00</time></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#frontend">מפתח/ת Frontend</a></th>
+            <td>ממשקים, חוויית משתמש ודפדפן</td>
+            <td><mark>React / TypeScript</mark></td>
+            <td><time datetime="08:30">08:30</time></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#fullstack">מפתח/ת Full Stack</a></th>
+            <td>מהממשק ועד מסד הנתונים</td>
+            <td><mark>React / Node.js</mark></td>
+            <td><time datetime="08:30">08:30</time></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#qa">מהנדס/ת QA ואוטומציה</a></th>
+            <td>איכות, בדיקות ומניעת תקלות</td>
+            <td><mark>Playwright / Selenium</mark></td>
+            <td><time datetime="08:00">08:00</time></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== מקצוע 1: מפתח/ת Backend =====
+       כל מקצוע בדף הוא article עם אותו מבנה: כותרת עם איור, ארבע תחנות, ודוגמאות קוד.
+       class="backend": נותן למקצוע צבע הדגשה משלו. ב-professions.css כל class מגדיר מחדש את המשתנה accent,
+       וכל הכרטיס (הפס העליון, הסימון, פסי ההתקדמות) משתמש בו.
+       id="backend": הכתובת של הכרטיס בתוך הדף. הקישורים בטבלה, בתפריט הצדדי ובדף הבית מובילים לכאן.
+       כשהכתובת מסתיימת ב-#backend, הכרטיס נבחר ב-CSS על ידי :target ומקבל הדגשה -->
+  <article class="backend" id="backend">
+    <!-- header של הכרטיס: האיור מצד אחד, ושם המקצוע והתיאור מהצד השני.
+         ב-CSS הוא flex בשורה, ובטלפון עובר לעמודה -->
+    <header>
+      <!-- figure: עוטף תמונה יחד עם הכיתוב שלה. figcaption: הכיתוב שמתחת לתמונה (כאן: הכלים).
+           loading="lazy": התמונה נטענת רק כשמגיעים אליה בגלילה -->
+      <figure>
+        <img src="../assets/images/professions/backend.svg" alt="איור: מפתח/ת Backend" width="400" height="300" loading="lazy">
+        <figcaption>C# / .NET</figcaption>
+      </figure>
+      <div>
+        <!-- h2: שם המקצוע. האימוג'י עטוף ב-span עם aria-hidden="true",
+             כדי שקורא מסך לא יקריא את שם הסמל לפני שם המקצוע -->
+        <h2><span aria-hidden="true">💻</span> מפתח/ת Backend</h2>
+        <p>שרתים, APIs ולוגיקה עסקית</p>
+        <p><mark>C# / .NET</mark></p>
+      </div>
+    </header>
+    <!-- ol.stations: ארבע תחנות היום, כרשימה ממוספרת כי יש להן סדר.
+         ב-CSS הרשימה היא flex עם גלישה: שתי תחנות בשורה, ובטלפון אחת.
+         כל li הוא בעצמו flex בעמודה, ולפס ההתקדמות יש margin-top: auto,
+         ולכן הוא תמיד בתחתית הכרטיס, גם כשהטקסט בכרטיסים באורך שונה -->
+    <ol class="stations">
+          <li>
+            <!-- p.when: השעה (time) ושם התחנה. הסמלים ☀ ◉ ☾ ✦ מסמנים בוקר, צהריים, ערב ולילה -->
+            <p class="when"><time datetime="08:00">08:00</time>☀ פתיחת היום</p>
+            <h3>קפה חם, IDE מוכן והקומפיילר מתעורר</h3>
+            <p>מתחילים בסקירת משימות, בדיקת תקלות מהלילה ותיאום ציפיות עם הצוות. אחר כך עוברים על Pull Requests ומתכוננים ל-Standup.</p>
+            <!-- ul: המשימות של התחנה. ב-CSS הרשימה היא flex עם גלישה, וכל li נראה כמו תגית מעוגלת -->
+            <ul>
+              <li>סקירת Jira</li>
+              <li>בדיקת Pull Requests</li>
+              <li>Daily Standup</li>
+              <li>תכנון ספרינט</li>
+            </ul>
+            <!-- progress: באיזו תחנה אנחנו מתוך 4. בדף המקצועות הפס בצבע ההדגשה של המקצוע (המשתנה accent) -->
+            <progress value="1" max="4">תחנה 1 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="12:30">12:30</time>◉ זמן לבנות</p>
+            <h3>מפתחים את הלוגיקה שמניעה את המוצר</h3>
+            <p>מממשים endpoint חדש, מחברים למסד הנתונים וכותבים בדיקות. עובדים מול צוות ה-Frontend כדי לוודא שהחוזה בין המערכות ברור.</p>
+            <ul>
+              <li>פיתוח API</li>
+              <li>כתיבת Unit Tests</li>
+              <li>עבודה עם SQL</li>
+              <li>תיאום עם Frontend</li>
+            </ul>
+            <progress value="2" max="4">תחנה 2 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="16:00">16:00</time>☾ מייצבים ומשפרים</p>
+            <h3>Debugging, Code Review ושיפור ביצועים</h3>
+            <p>מריצים בדיקות אינטגרציה, מאתרים צוואר בקבוק ומשפרים שאילתות. מסיימים Code Review ומעדכנים תיעוד.</p>
+            <ul>
+              <li>בדיקות אינטגרציה</li>
+              <li>Code Review</li>
+              <li>אופטימיזציה</li>
+              <li>עדכון תיעוד</li>
+            </ul>
+            <progress value="3" max="4">תחנה 3 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="18:30">18:30</time>✦ מסכמים ומשחררים</p>
+            <h3>גרסה מוכנה — והראש כבר באתגר הבא</h3>
+            <p>מעלים גרסה לסביבת Staging, בודקים לוגים ומוודאים שהניטור תקין. מתעדים מה הושלם ומשאירים משימות מסודרות למחר.</p>
+            <ul>
+              <li>Deploy ל-Staging</li>
+              <li>בדיקת Logs</li>
+              <li>עדכון Jira</li>
+              <li>תכנון למחר</li>
+            </ul>
+            <progress value="4" max="4">תחנה 4 מתוך 4</progress>
+          </li>
+    </ol>
+    <!-- details: דוגמאות הקוד, סגורות כברירת מחדל. לחיצה על summary פותחת אותן.
+         כל דוגמה היא figure: figcaption עם שם הקובץ, ומתחתיו pre + code עם הקוד.
+         הקוד לא מוזח כמו שאר ה-HTML, כי בתוך pre כל רווח מוצג בדף.
+         ב-CSS ה-pre מקבל direction: ltr ו-text-align: left, כי קוד נכתב משמאל לימין -->
+    <details>
+      <summary>דוגמאות קוד להמחשה (3 קבצים)</summary>
+        <figure>
+          <figcaption>המשימה &middot; <code>DailyRoutine.cs</code></figcaption>
+<pre><code>// Start the day with a focused task list
+var tasks = await jira.GetMySprintTasksAsync();
+var prs = await github.GetPendingReviewsAsync();
+
+logger.LogInformation(
+    "Ready with {Count} tasks", tasks.Count);</code></pre>
+        </figure>
+        <figure>
+          <figcaption>כלי עבודה &middot; <code>OrdersController.cs</code></figcaption>
+<pre><code>[HttpPost("orders")]
+public async Task&lt;IActionResult&gt; Create(
+    CreateOrderRequest request)
+{
+    var order = await service.CreateAsync(request);
+    return CreatedAtAction(nameof(Get),
+        new { id = order.Id }, order);
+}</code></pre>
+        </figure>
+        <figure>
+          <figcaption>תוצר &middot; <code>OrderServiceTests.cs</code></figcaption>
+<pre><code>[Fact]
+public async Task CreateAsync_SavesOrder()
+{
+    var result = await service.CreateAsync(
+        new CreateOrderRequest { Total = 120 });
+
+    Assert.NotNull(result);
+    repository.Verify(x =&gt; x.SaveAsync(
+        It.IsAny&lt;Order&gt;()), Times.Once);
+}</code></pre>
+        </figure>
+    </details>
+  </article>
+
+  <!-- ===== מקצוע 2: מפתח/ת Frontend. אותו מבנה כמו המקצוע הראשון ===== -->
+  <article class="frontend" id="frontend">
+    <header>
+      <figure>
+        <img src="../assets/images/professions/frontend.svg" alt="איור: מפתח/ת Frontend" width="400" height="300" loading="lazy">
+        <figcaption>React / TypeScript</figcaption>
+      </figure>
+      <div>
+        <h2><span aria-hidden="true">🎨</span> מפתח/ת Frontend</h2>
+        <p>ממשקים, חוויית משתמש ודפדפן</p>
+        <p><mark>React / TypeScript</mark></p>
+      </div>
+    </header>
+    <ol class="stations">
+          <li>
+            <p class="when"><time datetime="08:30">08:30</time>☀ השראה ותכנון</p>
+            <h3>פותחים את היום עם מסכים ורעיונות</h3>
+            <p>בודקים משוב משתמשים, עוברים על עיצובי Figma ומבינים אילו רכיבים צריך לבנות או לשפר.</p>
+            <ul>
+              <li>סקירת Figma</li>
+              <li>בדיקת באגים</li>
+              <li>תכנון קומפוננטות</li>
+              <li>תיאום עם Product</li>
+            </ul>
+            <progress value="1" max="4">תחנה 1 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="12:00">12:00</time>◉ הופכים עיצוב לממשק</p>
+            <h3>פיקסל אחר פיקסל, הממשק מתעורר לחיים</h3>
+            <p>בונים קומפוננטות נגישות ורספונסיביות, מחברים API ודואגים שהחוויה תעבוד בכל גודל מסך.</p>
+            <ul>
+              <li>React Components</li>
+              <li>חיבור API</li>
+              <li>Responsive Design</li>
+              <li>ניהול State</li>
+            </ul>
+            <progress value="2" max="4">תחנה 2 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="15:30">15:30</time>☾ בדיקות וליטוש</p>
+            <h3>מיקרו-אינטראקציות, נגישות וביצועים</h3>
+            <p>בודקים בדפדפנים שונים, מתקנים מצבי קצה, משפרים זמני טעינה ומקבלים הערות ממעצבים.</p>
+            <ul>
+              <li>בדיקות Cross-browser</li>
+              <li>נגישות</li>
+              <li>Lighthouse</li>
+              <li>Code Review</li>
+            </ul>
+            <progress value="3" max="4">תחנה 3 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="18:00">18:00</time>✦ שולחים למשתמשים</p>
+            <h3>הפיצ׳ר החדש עולה לאוויר</h3>
+            <p>ממזגים את הקוד, בודקים את סביבת Production ועוקבים אחרי מדדי שימוש ושגיאות.</p>
+            <ul>
+              <li>Merge</li>
+              <li>בדיקת Production</li>
+              <li>מעקב Analytics</li>
+              <li>סיכום משימות</li>
+            </ul>
+            <progress value="4" max="4">תחנה 4 מתוך 4</progress>
+          </li>
+    </ol>
+    <details>
+      <summary>דוגמאות קוד להמחשה (3 קבצים)</summary>
+        <figure>
+          <figcaption>המשימה &middot; <code>Dashboard.tsx</code></figcaption>
+<pre><code>// A small, reusable React component
+function Dashboard({ user }: Props) {
+  return (
+    &lt;main className="dashboard"&gt;
+      &lt;h1&gt;שלום, {user.name}&lt;/h1&gt;
+      &lt;ProjectOverview /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+        </figure>
+        <figure>
+          <figcaption>כלי עבודה &middot; <code>useProjects.ts</code></figcaption>
+<pre><code>export function useProjects() {
+  return useQuery({
+    queryKey: ["projects"],
+    queryFn: () =&gt; api.get("/projects"),
+    staleTime: 60_000,
+  });
+}</code></pre>
+        </figure>
+        <figure>
+          <figcaption>תוצר &middot; <code>Dashboard.test.tsx</code></figcaption>
+<pre><code>it("shows the user greeting", () =&gt; {
+  render(&lt;Dashboard user={demoUser} /&gt;);
+  expect(screen.getByText(
+    "שלום, Dana"
+  )).toBeInTheDocument();
+});</code></pre>
+        </figure>
+    </details>
+  </article>
+
+  <!-- ===== מקצוע 3: מפתח/ת Full Stack. אותו מבנה כמו המקצוע הראשון ===== -->
+  <article class="fullstack" id="fullstack">
+    <header>
+      <figure>
+        <img src="../assets/images/professions/fullstack.svg" alt="איור: מפתח/ת Full Stack" width="400" height="300" loading="lazy">
+        <figcaption>React / Node.js</figcaption>
+      </figure>
+      <div>
+        <h2><span aria-hidden="true">🧩</span> מפתח/ת Full Stack</h2>
+        <p>מהממשק ועד מסד הנתונים</p>
+        <p><mark>React / Node.js</mark></p>
+      </div>
+    </header>
+    <ol class="stations">
+          <li>
+            <p class="when"><time datetime="08:30">08:30</time>☀ תמונת מצב מלאה</p>
+            <h3>מחברים בין כל חלקי המערכת</h3>
+            <p>בודקים את מצב השרת והממשק, עוברים על משימות ומחליטים איזה חלק בפיצ׳ר דורש טיפול ראשון.</p>
+            <ul>
+              <li>בדיקת שירותים</li>
+              <li>סקירת משימות</li>
+              <li>תיאום צוות</li>
+              <li>תכנון פתרון</li>
+            </ul>
+            <progress value="1" max="4">תחנה 1 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="12:00">12:00</time>◉ בונים מקצה לקצה</p>
+            <h3>פיצ׳ר שלם — מהכפתור ועד הנתונים</h3>
+            <p>מפתחים טופס בממשק, endpoint בשרת ושומרים את המידע במסד הנתונים.</p>
+            <ul>
+              <li>בניית UI</li>
+              <li>פיתוח Endpoint</li>
+              <li>Schema למסד נתונים</li>
+              <li>חיבור שכבות</li>
+            </ul>
+            <progress value="2" max="4">תחנה 2 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="15:30">15:30</time>☾ מחברים ובודקים</p>
+            <h3>הכול עובד יחד? בודקים את זה</h3>
+            <p>מריצים בדיקות E2E, מטפלים בתקלות תקשורת ומשפרים את זרימת הנתונים בין הלקוח לשרת.</p>
+            <ul>
+              <li>בדיקות E2E</li>
+              <li>Debugging</li>
+              <li>בדיקת אבטחה</li>
+              <li>Review</li>
+            </ul>
+            <progress value="3" max="4">תחנה 3 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="18:00">18:00</time>✦ מסירה מסודרת</p>
+            <h3>מתעדים, ממזגים ומכינים שחרור</h3>
+            <p>מעדכנים תיעוד API, פותחים Pull Request ומוודאים שהפיצ׳ר מוכן לבדיקות QA.</p>
+            <ul>
+              <li>תיעוד API</li>
+              <li>Pull Request</li>
+              <li>CI Pipeline</li>
+              <li>העברה ל-QA</li>
+            </ul>
+            <progress value="4" max="4">תחנה 4 מתוך 4</progress>
+          </li>
+    </ol>
+    <details>
+      <summary>דוגמאות קוד להמחשה (3 קבצים)</summary>
+        <figure>
+          <figcaption>המשימה &middot; <code>ProjectForm.tsx</code></figcaption>
+<pre><code>function ProjectForm() {
+  const mutation = useCreateProject();
+  return &lt;form onSubmit={mutation.mutate}&gt;
+    &lt;input name="title" required /&gt;
+    &lt;button type="submit"&gt;יצירת פרויקט&lt;/button&gt;
+  &lt;/form&gt;;
+}</code></pre>
+        </figure>
+        <figure>
+          <figcaption>כלי עבודה &middot; <code>projects.route.ts</code></figcaption>
+<pre><code>router.post("/projects", async (req, res) =&gt; {
+  const project = await db.project.create({
+    data: validateProject(req.body),
+  });
+  res.status(201).json(project);
+});</code></pre>
+        </figure>
+        <figure>
+          <figcaption>תוצר &middot; <code>project.e2e.spec.ts</code></figcaption>
+<pre><code>test("creates a project", async ({ page }) =&gt; {
+  await page.goto("/projects/new");
+  await page.fill("[name=title]", "Launch");
+  await page.click("text=יצירת פרויקט");
+  await expect(page.locator(".success"))
+    .toBeVisible();
+});</code></pre>
+        </figure>
+    </details>
+  </article>
+
+  <!-- ===== מקצוע 4: מהנדס/ת QA ואוטומציה. אותו מבנה כמו המקצוע הראשון ===== -->
+  <article class="qa" id="qa">
+    <header>
+      <figure>
+        <img src="../assets/images/professions/qa.svg" alt="איור: מהנדס/ת QA ואוטומציה" width="400" height="300" loading="lazy">
+        <figcaption>Playwright / Selenium</figcaption>
+      </figure>
+      <div>
+        <h2><span aria-hidden="true">🧪</span> מהנדס/ת QA ואוטומציה</h2>
+        <p>איכות, בדיקות ומניעת תקלות</p>
+        <p><mark>Playwright / Selenium</mark></p>
+      </div>
+    </header>
+    <ol class="stations">
+          <li>
+            <p class="when"><time datetime="08:00">08:00</time>☀ בונים אסטרטגיית בדיקות</p>
+            <h3>חושבים כמו משתמש — ומחפשים מה עלול להשתבש</h3>
+            <p>עוברים על דרישות הגרסה, מתעדפים סיכונים ובוחרים תרחישים שחשוב לבדוק.</p>
+            <ul>
+              <li>סקירת דרישות</li>
+              <li>תעדוף סיכונים</li>
+              <li>בדיקת באגים פתוחים</li>
+              <li>תכנון Test Cases</li>
+            </ul>
+            <progress value="1" max="4">תחנה 1 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="11:30">11:30</time>◉ בודקים לעומק</p>
+            <h3>מאתגרים כל תרחיש וכל כפתור</h3>
+            <p>מבצעים בדיקות ידניות, בודקים מקרי קצה ומריצים תסריטי אוטומציה על גרסה חדשה.</p>
+            <ul>
+              <li>בדיקות פונקציונליות</li>
+              <li>בדיקות API</li>
+              <li>הרצת אוטומציה</li>
+              <li>בדיקות רגרסיה</li>
+            </ul>
+            <progress value="2" max="4">תחנה 2 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="15:00">15:00</time>☾ חוקרים תקלות</p>
+            <h3>משחזרים, מתעדים ומוודאים שהבעיה נפתרה</h3>
+            <p>פותחים Bug Reports מדויקים, מנתחים תוצאות CI ובודקים תיקונים מול צוות הפיתוח.</p>
+            <ul>
+              <li>שחזור באגים</li>
+              <li>ניתוח Logs</li>
+              <li>בדיקת תיקונים</li>
+              <li>עדכון Test Suite</li>
+            </ul>
+            <progress value="3" max="4">תחנה 3 מתוך 4</progress>
+          </li>
+          <li>
+            <p class="when"><time datetime="18:00">18:00</time>✦ מאשרים איכות</p>
+            <h3>מוכנים לשחרור — עם תמונת איכות ברורה</h3>
+            <p>מפיקים דוח בדיקות, מסכמים כיסוי וממליצים אם הגרסה מוכנה לעלות.</p>
+            <ul>
+              <li>דוח QA</li>
+              <li>מדדי כיסוי</li>
+              <li>בדיקת Smoke</li>
+              <li>המלצת Release</li>
+            </ul>
+            <progress value="4" max="4">תחנה 4 מתוך 4</progress>
+          </li>
+    </ol>
+    <details>
+      <summary>דוגמאות קוד להמחשה (3 קבצים)</summary>
+        <figure>
+          <figcaption>המשימה &middot; <code>login.spec.ts</code></figcaption>
+<pre><code>test("user can sign in", async ({ page }) =&gt; {
+  await page.goto("/login");
+  await page.getByLabel("אימייל").fill("qa@test.com");
+  await page.getByLabel("סיסמה").fill("secret");
+  await page.getByRole("button", { name: "כניסה" }).click();
+  await expect(page).toHaveURL("/dashboard");
+});</code></pre>
+        </figure>
+        <figure>
+          <figcaption>כלי עבודה &middot; <code>api-check.spec.ts</code></figcaption>
+<pre><code>const response = await request.get("/api/health");
+expect(response.status()).toBe(200);
+expect(await response.json()).toMatchObject({
+  status: "healthy",
+});</code></pre>
+        </figure>
+        <figure>
+          <figcaption>תוצר &middot; <code>test-report.txt</code></figcaption>
+<pre><code>Suite: Checkout flow
+Passed: 128
+Failed: 0
+Skipped: 2
+Coverage: 94%
+
+Release recommendation: READY</code></pre>
+        </figure>
+    </details>
+  </article>
+</main>
+<!-- ===== aside: תפריט צדדי =====
+     "במסלול הזה": קישורים פנימיים (#) לכרטיסי המקצועות בדף הזה.
+     "מסלולים נוספים": קישורים לשאר דפי המסלולים, ובסוף קישור להורדת המדריך.
+     ב-CSS הוא sticky: נשאר על המסך בזמן גלילה. aside h2 ~ h2 מוסיף רווח מעל הכותרת השנייה בלבד -->
+<aside>
+  <h2>במסלול הזה</h2>
+  <ul>
+    <li><a href="#backend">מפתח/ת Backend</a></li>
+    <li><a href="#frontend">מפתח/ת Frontend</a></li>
+    <li><a href="#fullstack">מפתח/ת Full Stack</a></li>
+    <li><a href="#qa">מהנדס/ת QA ואוטומציה</a></li>
+  </ul>
+  <h2>מסלולים נוספים</h2>
+  <ul>
+    <li><a href="infrastructure.html">תשתיות ואבטחה</a></li>
+    <li><a href="data-ai.html">נתונים ו-AI</a></li>
+    <li><a href="product-design.html">מוצר ועיצוב</a></li>
+  </ul>
+  <p><a href="../assets/files/techday-guide.pdf" download>מדריך להורדה</a></p>
+</aside>
+</div>
+
+<!-- ===== footer: הכותרת התחתונה. זהה בכל דפי האתר =====
+     ב-CSS היא flex בשורה: זכויות היוצרים בצד אחד והקישורים בצד השני.
+     &copy; היא "ישות" (entity) של HTML שמציגה את הסימן © -->
+<footer>
+  <p>כל הזכויות שמורות &copy; 2026 TECHDAY</p>
+  <!-- תפריט ניווט שני, עם aria-label אחר, כדי שקורא מסך יבדיל בינו לבין התפריט הראשי -->
+  <nav aria-label="קישורים תחתונים">
+    <ul>
+      <li><a href="about.html">אודות</a></li>
+      <li><a href="order.html">הרשמה</a></li>
+      <!-- download: הדפדפן מוריד את הקובץ למחשב, במקום לפתוח אותו בלשונית.
+           את הסמל 📄 שליד הקישור לא כותבים כאן: ה-CSS מוסיף אותו לבד לכל קישור שמסתיים ב-.pdf (a[href$=".pdf"]::before) -->
+      <li><a href="../assets/files/techday-guide.pdf" download>מדריך להורדה</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<!-- כפתור "חזרה לראש הדף": קבוע בפינת המסך (position: fixed ב-CSS) ולא זז בגלילה.
+     href="#": קישור לראש הדף. הגלילה חלקה בזכות scroll-behavior: smooth ב-CSS.
+     aria-label: לכפתור יש רק חץ בלי מילים, ולכן נותנים לו שם בשביל קוראי מסך -->
+<a class="to-top" href="#" aria-label="חזרה לראש הדף">↑</a>
+</body>
+</html>

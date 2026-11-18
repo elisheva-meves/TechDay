@@ -1,0 +1,138 @@
+/* success.css - עיצוב ייחודי לדף "הפרטים נקלטו בהצלחה" בלבד. נטען אחרי style.css.
+
+   align-items: center - התוכן ממורכז לגובה בתוך העוטף
+   הסלקטור: ה-div.wrapper של הדף הזה בלבד */
+.wrapper {
+  align-items: center;
+}
+
+/* main הוא flex עם justify-content: center, ולכן הכרטיס ממורכז לרוחב
+   הסלקטור: main של הדף הזה בלבד */
+main {
+  display: flex;
+  justify-content: center;
+}
+
+/* הכרטיס: ברוחב מלא, אבל לא יותר מ-640 פיקסלים. הטקסט ממורכז.
+   padding: 48px 6% 44px - למעלה, צדדים (באחוזים מהרוחב), למטה
+   הסלקטור: ה-section שהוא ילד ישיר של main (הכרטיס) */
+main > section {
+  width: 100%;
+  max-width: 640px;
+  padding: 48px 6% 44px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(35, 76, 160, 0.2);
+}
+
+/* ---------- אייקון ✓ מונפש (position + animation) ----------
+   העיגול הירוק: span ריק בגודל 96 על 96, עם border-radius: 50%.
+   display: block + margin: 0 auto - בשורה משלו וממורכז.
+   position: relative - הסימן ✓ (::after, שהוא absolute) ממוקם ביחס לעיגול.
+   box-shadow: 0 0 0 0 - צל בגודל 0, נקודת ההתחלה של אנימציית pulse.
+   animation: שתי אנימציות, מופרדות בפסיק:
+   pop 0.6s cubic-bezier(...) both - העיגול "קופץ" פנימה. cubic-bezier הוא עקומת מהירות מותאמת אישית,
+   והערך 1.4 שבה גורם לו לעבור מעט את הגודל הסופי ולחזור, כמו קפיצה.
+   pulse 2.4s ease-out 0.8s infinite - הילה שמתרחבת, מתחילה אחרי 0.8 שניות וחוזרת בלולאה
+   הסלקטור: האלמנט עם class="check" (העיגול) */
+.check {
+  position: relative;
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 26px;
+  background: linear-gradient(135deg, #2fcf9d, #48ddb0);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(72, 221, 176, 0.5);
+  animation: pop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both, pulse 2.4s ease-out 0.8s infinite;
+}
+
+/* הסימן ✓ עצמו:
+   top ו-left: 50% + translate(-50%, -60%) - ממרכזים אותו בתוך העיגול.
+   מלבן של 26 על 48 פיקסלים עם מסגרת לבנה רק מימין ולמטה
+   (border-width: למעלה 0, ימין 8px, למטה 8px, שמאל 0). מסובב ב-45 מעלות, זה נראה כמו ✓.
+   animation: draw - הסימן "מצויר", אחרי השהיה של 0.35 שניות
+   הסלקטור: הפסאודו-אלמנט ::after של .check (הסימן ✓) */
+.check::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 48px;
+  border: solid #fff;
+  border-width: 0 8px 8px 0;
+  border-radius: 2px;
+  transform: translate(-50%, -60%) rotate(45deg);
+  animation: draw 0.5s ease-out 0.35s both;
+}
+
+/* הכותרת: clamp - גודל שמשתנה עם רוחב המסך, בין 1.8rem ל-2.6rem
+   הסלקטור: ה-h1 בתוך main */
+main h1 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  letter-spacing: -1px;
+}
+
+/* הסלקטור: הפסקאות בתוך main */
+main p {
+  color: #bdc9de;
+}
+
+/* רשימת שני הכפתורים: flex בשורה, ממורכזת, בלי נקודות ובלי הזחה
+   הסלקטור: הרשימה בתוך main */
+main ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* pop: מגודל 0 (scale(0), לא רואים) לגודל מלא */
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* pulse: הצל מתפשט ל-28 פיקסלים ונעשה שקוף, כך שנראית טבעת שמתרחבת ונעלמת */
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 28px rgba(72, 221, 176, 0);
+  }
+}
+
+/* draw: clip-path: inset(למעלה ימין למטה שמאל) - "חותך" חלק מהאלמנט.
+   בהתחלה חותכים 100% מלמטה (לא רואים כלום), ובסוף 0 (רואים הכול),
+   כך שהסימן מתגלה בהדרגה, כאילו מציירים אותו */
+@keyframes draw {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ---------- רספונסיביות ----------
+   טלפון: פחות ריווח בכרטיס ועיגול קטן יותר */
+@media (max-width: 620px) {
+  /* הסלקטור: ה-section שהוא ילד ישיר של main (הכרטיס) */
+  main > section {
+    padding: 36px 5% 32px;
+  }
+
+  /* הסלקטור: האלמנט עם class="check" (העיגול) */
+  .check {
+    width: 80px;
+    height: 80px;
+  }
+}

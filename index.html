@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: מודיע לדפדפן שזה מסמך HTML5, כדי שיציג אותו לפי התקן העדכני -->
+<!-- html: התגית שעוטפת את כל הדף.
+     lang="he": שפת הדף עברית (עוזר לקוראי מסך, למנועי חיפוש ולתרגום אוטומטי).
+     dir="rtl": כיוון הכתיבה מימין לשמאל, כך שכל הדף "מתחיל" מצד ימין -->
+<html lang="he" dir="rtl">
+<!-- ===== head: מידע על הדף. שום דבר כאן לא מוצג בתוך הדף עצמו ===== -->
+<head>
+<meta charset="UTF-8">
+<!-- meta charset: קידוד התווים. UTF-8 מאפשר להציג עברית, אימוג'י וסימנים מיוחדים בלי ג'יבריש.
+     השורה הזו חייבת להיות בתחילת ה-head -->
+<!-- viewport: חובה לאתר רספונסיבי. אומר לטלפון להציג את הדף ברוחב המסך האמיתי
+     (width=device-width) ובלי הגדלה התחלתית (initial-scale=1.0), ולא "להקטין" אתר של מחשב.
+     בלי השורה הזו ה-media queries ב-CSS לא יעבדו נכון בטלפון -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- meta description: תיאור קצר של הדף. לא מוצג בדף, אבל גוגל מציג אותו
+     מתחת לכותרת בתוצאות החיפוש. לכל דף תיאור משלו (קידום אתרים, SEO) -->
+<meta name="description" content="מסע בין תחנות היום של 13 מקצועות בהייטק: פיתוח, תשתיות ואבטחה, נתונים ו-AI, מוצר ועיצוב.">
+<!-- theme-color: צבע שורת הכתובת של הדפדפן בטלפון. זה אותו צבע כחול-לילה של רקע האתר -->
+<meta name="theme-color" content="#080d1b">
+<!-- title: הכותרת שמופיעה בלשונית של הדפדפן ובתוצאות החיפוש של גוגל.
+     המבנה בכל הדפים זהה: שם הדף, קו אנכי ושם האתר -->
+<title>יום בחייהם של אנשי ההייטק | TECHDAY</title>
+<!-- favicon: האייקון הקטן שמופיע בלשונית ליד הכותרת.
+     index.html נמצא בתיקייה הראשית, ולכן הנתיב מתחיל ישר בשם התיקייה -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<!-- preconnect: "מתחבר מראש" לשרתים של Google Fonts, עוד לפני שמבקשים מהם את הגופנים,
+     וכך הגופנים נטענים מהר יותר.
+     בשורה השנייה יש crossorigin, כי קובצי הגופן עצמם מורדים משרת אחר (fonts.gstatic.com) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- טעינת הגופנים מ-Google Fonts (שניהם תומכים בעברית):
+     Heebo - הגופן של כל הטקסט באתר. wght@300;400;...;900: העוביים שמורידים, מדק מאוד ועד שמן מאוד
+     Fira Code - גופן "מכונת כתיבה" (כל התווים באותו רוחב), לקוד ולשעות.
+     &amp; בכתובת הוא הדרך לכתוב את התו & בתוך HTML (הוא מפריד בין שני הגופנים).
+     display=swap: עד שהגופן נטען מוצג גופן גיבוי, כדי שהטקסט לא יהיה שקוף בזמן הטעינה -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;family=Fira+Code:wght@400;500;600&amp;display=swap">
+<!-- קובץ העיצוב המשותף לכל הדפים: צבעים, גופנים, כותרת עליונה, תפריט, כפתורים, טבלאות וכותרת תחתונה -->
+<link rel="stylesheet" href="css/style.css">
+<!-- קובץ העיצוב של דף הבית בלבד. הוא נטען אחרי style.css,
+     ולכן כלל כאן יכול "לדרוס" כלל משותף עם אותו סלקטור -->
+<link rel="stylesheet" href="css/index.css">
+</head>
+<!-- ===== body: כל מה שמוצג בדף ===== -->
+<body>
+<!-- ===== header: הכותרת העליונה. זהה בכל דפי האתר =====
+     ב-CSS (style.css) היא "דביקה" (position: sticky): נשארת בראש המסך בזמן גלילה.
+     היא גם flex בשורה: הלוגו בצד אחד והתפריט בצד השני (justify-content: space-between).
+     ב-CSS כתוב body > header - רק header שהוא ילד ישיר של body, ולא ה-header שבתוך main -->
+<header>
+  <!-- הלוגו ושם האתר עטופים בקישור אחד לדף הבית, כך שלחיצה על כל אחד מהם מחזירה לדף הבית -->
+  <a href="index.html">
+    <!-- img: תמונת הלוגו (קובץ SVG - תמונה וקטורית שנשארת חדה בכל גודל).
+         alt: טקסט חלופי, שקורא מסך מקריא לעיוורים ושמוצג אם התמונה לא נטענת.
+         width ו-height: המידות של התמונה. הדפדפן שומר לה מקום מראש, והדף לא "קופץ" כשהיא נטענת -->
+    <img src="assets/images/logo.svg" alt="לוגו TECHDAY - לחיצה מובילה לדף הבית" width="40" height="40">
+    <!-- strong: שם האתר, מודגש. החלק DAY עטוף ב-span, כדי שב-CSS יקבל צבע אחר (כחול) -->
+    <strong>TECH<span>DAY</span></strong>
+  </a>
+  <!-- nav: תגית סמנטית לתפריט ניווט. בתוכה רשימה לא ממוספרת (ul), וכל פריט (li) הוא קישור לדף.
+       aria-label: שם לתפריט בשביל קוראי מסך, כי יש באתר שני תפריטים (גם בכותרת התחתונה).
+       ב-CSS הרשימה היא flex עם גלישה (flex-wrap), והקישורים נראים כמו כפתורים מעוגלים.
+       מ-index.html נכנסים לתיקיית pages, ולכן שאר הנתיבים מתחילים ב-pages/ -->
+  <nav aria-label="תפריט ראשי">
+    <ul>
+      <!-- aria-current="page": מסמן שזה הקישור לדף שבו נמצאים עכשיו.
+           קורא מסך מודיע "הדף הנוכחי", וה-CSS מדגיש אותו בעזרת סלקטור תכונה: nav a[aria-current="page"] -->
+      <li><a href="index.html" aria-current="page">דף הבית</a></li>
+      <li><a href="pages/development.html">פיתוח</a></li>
+      <li><a href="pages/infrastructure.html">תשתיות ואבטחה</a></li>
+      <li><a href="pages/data-ai.html">נתונים ו-AI</a></li>
+      <li><a href="pages/product-design.html">מוצר ועיצוב</a></li>
+      <li><a href="pages/about.html">אודות</a></li>
+      <li><a href="pages/order.html">הרשמה</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== div.wrapper: העוטף של התוכן המרכזי =====
+     בדף הזה אין aside, ולכן main תופס את כל הרוחב.
+     ב-CSS יש לו flex: 1, ולכן הוא תופס את כל הגובה הפנוי ודוחף את הכותרת התחתונה לתחתית המסך גם כשהדף קצר -->
+<div class="wrapper">
+<!-- ===== main: התוכן המרכזי והייחודי של הדף. יש רק main אחד בכל דף ===== -->
+<main>
+  <!-- ===== 1. Hero: החלק הפותח של דף הבית =====
+       section: תגית סמנטית לחלק בדף שיש לו נושא משלו.
+       ב-CSS (index.css) הוא flex בשורה: הטקסט מצד ימין והאיור מצד שמאל.
+       במסך צר מ-900 פיקסלים הם עוברים לעמודה, והאיור יורד מתחת לטקסט -->
+  <section class="hero">
+    <!-- div שמקבץ את כל הטקסט, כדי שיהיה פריט flex אחד מול האיור.
+         ב-CSS: .hero > div:first-child - הילד הראשון של hero, שתופס כ-54% מהרוחב -->
+    <div>
+      <!-- span.eyebrow: תווית קטנה ומעוגלת מעל הכותרת ("גבה" בתרגום חופשי).
+           העיצוב שלה משותף לכל הדפים ונמצא ב-style.css -->
+      <span class="eyebrow">✦ חוויית למידה על מקצועות ההייטק</span>
+      <!-- h1: הכותרת הראשית והחשובה ביותר בדף. יש רק h1 אחד בכל דף.
+           br: ירידת שורה בתוך הכותרת.
+           span: החלק "אנשי ההייטק" צבוע במעבר צבעים (gradient). ב-CSS הרקע נצבע במעבר צבעים,
+           background-clip: text "גוזר" אותו לצורת האותיות, והטקסט עצמו שקוף, כך שרואים את הצבעים דרך האותיות -->
+      <h1>יום בחייהם של<br><span>אנשי ההייטק</span></h1>
+      <!-- p.lead: פסקת פתיחה, בגופן קצת גדול יותר ובצבע בהיר יותר.
+           &ndash; היא ישות HTML שמציגה קו מפריד בינוני (–) -->
+      <p class="lead">מהקפה הראשון ועד פריסת הגרסה &ndash; הצצה אל מאחורי הקלעים של 13 מקצועות טכנולוגיים. בחרו מסלול, עברו בין תחנות היום וגלו איך נראית העבודה באמת.</p>
+      <!-- שני קישורים שמעוצבים ככפתורים: class="btn" לכפתור רגיל, ו-"btn primary" לכפתור הבולט (מעבר צבעים).
+           הקישורים הם קישורים פנימיים: href="#tracks" קופץ לאלמנט עם id="tracks" באותו דף.
+           הקפיצה חלקה בזכות scroll-behavior: smooth, ו-scroll-padding-top ב-CSS משאיר מקום
+           כדי שהכותרת הדביקה לא תסתיר את הכותרת של החלק.
+           ב-CSS p.buttons הוא flex: שני הכפתורים זה לצד זה, עם רווח ביניהם -->
+      <p class="buttons">
+        <a class="btn primary" href="#tracks">בחרו מסלול ←</a>
+        <a class="btn" href="#day">לצפייה בתחנות היום</a>
+      </p>
+      <!-- dl: רשימת הגדרות (description list). dt = המונח (כאן: המספר), dd = ההסבר שלו.
+           כל זוג dt ו-dd עטוף ב-div (מותר ב-HTML5), כדי שב-CSS כל זוג יהיה פריט flex אחד.
+           dl עצמו הוא flex בשורה: שלושת הנתונים זה לצד זה -->
+      <dl>
+        <div><dt>13</dt><dd>מקצועות</dd></div>
+        <div><dt>4</dt><dd>תחנות ביום</dd></div>
+        <div><dt>4</dt><dd>מסלולי קריירה</dd></div>
+      </dl>
+    </div>
+    <!-- ===== האיור של ה-hero: כדור זוהר, שני מסלולים וחלון קוד מדומה =====
+         הכול מצויר ב-CSS, בלי תמונות.
+         aria-hidden="true": האיור הוא קישוט בלבד, ולכן קוראי מסך מדלגים עליו (כולל הקוד שבתוכו).
+         ב-CSS הוא position: relative, וכך הכדור והמסלולים (position: absolute) ממוקמים ביחס אליו.
+         overflow: hidden חותך את מה שבולט מחוץ לגבולות שלו -->
+    <div class="hero-art" aria-hidden="true">
+      <!-- div.orb: כדור זוהר. div ריק, שה-CSS הופך לעיגול (border-radius: 50%)
+           עם מעבר צבעים עגול (radial-gradient) והילה (box-shadow).
+           האנימציה float מרימה ומורידה אותו לאט, בלולאה אינסופית -->
+      <div class="orb"></div>
+      <!-- div.orbit: שני "מסלולים" אליפטיים מסביב לכדור: div ריק עם מסגרת דקה ופינות עגולות, מסובב באלכסון.
+           ב-CSS .orbit + .orbit בוחר את המסלול השני (שבא מיד אחרי הראשון) ונותן לו גודל וזווית אחרים -->
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <!-- div.hero-window: "חלון עורך קוד" מדומה. הקוד לא אמיתי, הוא רק להמחשה.
+           position: relative נותן לו שכבה מעל הכדור והמסלולים.
+           האנימציה tilt מטה אותו מעט קדימה ואחורה -->
+      <div class="hero-window">
+        <!-- שורת הכותרת של החלון: שם הקובץ, ושלוש נקודות צבעוניות כמו הכפתורים של חלון אמיתי.
+             כל נקודה היא תגית i ריקה, שה-CSS הופך לעיגול צבעוני (אדום, צהוב, ירוק).
+             span.dots הוא flex, ו-window-head הוא flex עם space-between, ולכן שם הקובץ והנקודות בשני הקצוות -->
+        <p class="window-head"><span>daily-routine.dev</span><span class="dots"><i></i><i></i><i></i></span></p>
+<!-- pre: מציג את הטקסט בדיוק כמו שהוא כתוב, כולל רווחים וירידות שורה. code: מסמן שזה קוד.
+     בגלל זה שורות הקוד לא מוזחות פנימה כמו שאר ה-HTML: כל רווח בתוך pre מוצג בדף.
+     כל span עם class צובע חלק בקוד, כמו בעורך קוד אמיתי:
+     k = מילת מפתח (const, async function, await), s = מחרוזת טקסט, c = שם פונקציה, m = הערה.
+     ב-CSS ה-pre מקבל direction: ltr, כי קוד נכתב משמאל לימין -->
+<pre><code><span class="k">const</span> day = <span class="s">"build something great"</span>;
+<span class="k">async function</span> <span class="c">startDay</span>() {
+  coffee.<span class="c">brew</span>();
+  ideas.<span class="c">turnIntoReality</span>();
+  <span class="k">await</span> teamwork.<span class="c">ship</span>();
+}
+
+<span class="m">// your next chapter starts here_</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 2. בוחרים מסלול: ארבעה כרטיסי קטגוריות =====
+       id="tracks": "כתובת" של החלק בתוך הדף. הכפתור "בחרו מסלול" ב-hero מוביל לכאן (href="#tracks") -->
+  <section id="tracks">
+    <span class="eyebrow">01 / בוחרים מסלול</span>
+    <h2>איזה יום תרצו לחוות?</h2>
+    <p>לכל מקצוע שגרת עבודה אחרת, כלים שונים ואתגרים ייחודיים. בחרו מסלול כדי לראות את המקצועות שבו.</p>
+    <!-- div.categories: הרשת של הכרטיסים. ב-CSS הוא flex עם גלישה:
+         כל כרטיס תופס כ-47% מהרוחב, ולכן נכנסים שניים בשורה. בטלפון כל כרטיס בשורה משלו -->
+    <div class="categories">
+
+      
+      <!-- ===== כרטיס 1: פיתוח =====
+           article: תגית סמנטית לתוכן שעומד בפני עצמו. class="card": עיצוב הכרטיס המשותף לכל האתר (style.css).
+           מבנה כל כרטיס: תמונה, ומתחתיה div עם כותרת (h3), תיאור (p), רשימת מקצועות (ul) וכפתור.
+           ב-CSS הכרטיס הוא flex בעמודה, וה-div בתוכו מקבל flex: 1 וגם הוא flex בעמודה.
+           לכפתור יש margin-top: auto, שדוחף אותו לתחתית הכרטיס, וכך הכפתורים בכל הכרטיסים באותו גובה -->
+      <article class="card">
+        <!-- תכונות התמונה:
+             alt - תיאור התמונה לקוראי מסך
+             width / height - שומרים לתמונה מקום מראש, כדי שהדף לא יקפוץ כשהיא נטענת
+             loading="lazy" - טעינה עצלה: התמונה נטענת רק כשגוללים ומתקרבים אליה, ולא כולן מיד בפתיחת הדף.
+             כך הדף נפתח מהר יותר.
+             ב-CSS: aspect-ratio: 16 / 9 ו-object-fit: cover - כל התמונות באותו יחס, ומה שלא נכנס נחתך בלי עיוות -->
+        <img src="assets/images/professions/backend.svg" alt="איור של מקצועות בקטגוריית פיתוח" width="400" height="300" loading="lazy">
+        <div>
+          <h3>פיתוח</h3>
+          <p>בונים את המוצר: שרתים, ממשקים ואיכות. ארבעה תפקידי פיתוח, ולכל אחד יום עבודה אחר.</p>
+          <ul>
+            <!-- כל קישור מוביל לדף אחר, ואחרי ה-# יש id של מקצוע בדף ההוא.
+                 כך הדפדפן פותח את הדף וגולל ישר לכרטיס של המקצוע, וה-CSS מדגיש אותו (:target ב-professions.css) -->
+            <li><a href="pages/development.html#backend">מפתח/ת Backend</a></li>
+            <li><a href="pages/development.html#frontend">מפתח/ת Frontend</a></li>
+            <li><a href="pages/development.html#fullstack">מפתח/ת Full Stack</a></li>
+            <li><a href="pages/development.html#qa">מהנדס/ת QA ואוטומציה</a></li>
+          </ul>
+          <!-- כפתור לדף של כל המסלול, בלי #: הדף נפתח מההתחלה. ← הוא תו של חץ -->
+          <a class="btn" href="pages/development.html">לכל מקצועות פיתוח ←</a>
+        </div>
+      </article>
+
+      <!-- ===== כרטיס 2: תשתיות ואבטחה. אותו מבנה כמו כרטיס 1 ===== -->
+      <article class="card">
+        <img src="assets/images/professions/devops.svg" alt="איור של מקצועות בקטגוריית תשתיות ואבטחה" width="400" height="300" loading="lazy">
+        <div>
+          <h3>תשתיות ואבטחה</h3>
+          <p>מחזיקים את המערכות באוויר: ענן, אוטומציה והגנה מפני איומים.</p>
+          <ul>
+            <li><a href="pages/infrastructure.html#devops">מהנדס/ת DevOps</a></li>
+            <li><a href="pages/infrastructure.html#cyber">אנליסט/ית סייבר</a></li>
+            <li><a href="pages/infrastructure.html#cloud">ארכיטקט/ית ענן</a></li>
+          </ul>
+          <a class="btn" href="pages/infrastructure.html">לכל מקצועות תשתיות ואבטחה ←</a>
+        </div>
+      </article>
+
+      <!-- ===== כרטיס 3: נתונים ו-AI. אותו מבנה כמו כרטיס 1 ===== -->
+      <article class="card">
+        <img src="assets/images/professions/data.svg" alt="איור של מקצועות בקטגוריית נתונים ו-AI" width="400" height="300" loading="lazy">
+        <div>
+          <h3>נתונים ו-AI</h3>
+          <p>הופכים מידע גולמי לתובנות, ומלמדים מודלים לזהות דפוסים.</p>
+          <ul>
+            <li><a href="pages/data-ai.html#data">אנליסט/ית נתונים</a></li>
+            <li><a href="pages/data-ai.html#ml">מהנדס/ת Machine Learning</a></li>
+          </ul>
+          <a class="btn" href="pages/data-ai.html">לכל מקצועות נתונים ו-AI ←</a>
+        </div>
+      </article>
+
+      <!-- ===== כרטיס 4: מוצר ועיצוב. אותו מבנה כמו כרטיס 1 ===== -->
+      <article class="card">
+        <img src="assets/images/professions/ux.svg" alt="איור של מקצועות בקטגוריית מוצר ועיצוב" width="400" height="300" loading="lazy">
+        <div>
+          <h3>מוצר ועיצוב</h3>
+          <p>מגדירים מה לבנות, איך זה ייראה ואיך הצוות עובד יחד.</p>
+          <ul>
+            <li><a href="pages/product-design.html#ux">מעצב/ת UX/UI</a></li>
+            <li><a href="pages/product-design.html#pm">מנהל/ת מוצר (Product)</a></li>
+            <li><a href="pages/product-design.html#scrum">Scrum Master</a></li>
+            <li><a href="pages/product-design.html#writer">כותב/ת תוכן טכנולוגי</a></li>
+          </ul>
+          <a class="btn" href="pages/product-design.html">לכל מקצועות מוצר ועיצוב ←</a>
+        </div>
+      </article>
+
+
+    </div>
+  </section>
+
+
+
+  <!-- ===== 3. ארבע תחנות היום =====
+       id="day": הכפתור "לצפייה בתחנות היום" ב-hero מוביל לכאן -->
+  <section id="day">
+    <span class="eyebrow">02 / המסע לאורך היום</span>
+    <h2>ארבע תחנות. יום אחד.</h2>
+    <p>בכל מקצוע היום מתחלק לארבע תחנות. כך המשימות, שיתופי הפעולה והכלים משתנים מהבוקר ועד הלילה.</p>
+    <!-- ol: רשימה ממוספרת (ordered list), כי לתחנות יש סדר: בוקר, צהריים, ערב, לילה.
+         ב-CSS המספרים הרגילים מבוטלים (list-style: none), והרשימה היא flex עם גלישה:
+         ארבע תחנות בשורה במחשב, אחת בשורה בטלפון.
+         לכל תחנה פס צבע אחר בראש הכרטיס, בעזרת li:nth-child(2), (3), (4) -->
+    <ol class="stations">
+        <li>
+          <!-- time: תגית לשעה או לתאריך. datetime: השעה בפורמט שמחשב מבין (שעות:דקות),
+               והטקסט בין התגיות הוא מה שרואים בדף. ב-CSS כל ה-time באתר בגופן Fira Code -->
+          <time datetime="08:00">08:00</time>
+          <h3>☀ בוקר</h3>
+          <p>סקירת משימות, תיאום עם הצוות ותכנון היום.</p>
+          <!-- progress: פס התקדמות (נושא הלמידה העצמית). value: כמה כבר עברנו, max: הסך הכול.
+               כאן: תחנה 1 מתוך 4, ולכן הפס מלא ברבע. הטקסט בין התגיות מוצג רק בדפדפן ישן שלא מכיר את progress.
+               העיצוב של הפס (צבע, עובי, פינות) נמצא ב-style.css -->
+          <progress value="1" max="4">תחנה 1 מתוך 4</progress>
+        </li>
+        <li>
+          <time datetime="12:00">12:00</time>
+          <h3>◉ צהריים</h3>
+          <p>עבודה עמוקה: בונים, מנתחים ופותרים בעיות.</p>
+          <progress value="2" max="4">תחנה 2 מתוך 4</progress>
+        </li>
+        <li>
+          <time datetime="16:00">16:00</time>
+          <h3>☾ ערב</h3>
+          <p>בדיקות, ליטוש ושיפור של התוצר.</p>
+          <progress value="3" max="4">תחנה 3 מתוך 4</progress>
+        </li>
+        <li>
+          <time datetime="18:30">18:30</time>
+          <h3>✦ לילה</h3>
+          <p>מסכמים, משחררים ומכינים את מחר.</p>
+          <progress value="4" max="4">תחנה 4 מתוך 4</progress>
+        </li>
+    </ol>
+  </section>
+
+  <!-- ===== 4. שני פאנלים בסוף הדף: הורדת המדריך והרשמה ===== -->
+  <section>
+    <!-- div.cta-panel: פאנל "קריאה לפעולה" (Call To Action).
+         ב-CSS הוא flex בשורה עם space-between: הטקסט בצד אחד והכפתור בצד השני -->
+    <div class="cta-panel">
+      <div>
+        <h2>רוצים הכול במקום אחד?</h2>
+        <p>מדריך PDF עם כל המקצועות ותחנות היום, להורדה ולקריאה בנחת.</p>
+      </div>
+      <!-- קישור להורדת קובץ ה-PDF מתיקיית assets/files.
+           download: הדפדפן מוריד את הקובץ למחשב, במקום לפתוח אותו -->
+      <a class="btn primary" href="assets/files/techday-guide.pdf" download>הורדת המדריך (PDF)</a>
+    </div>
+    <!-- פאנל שני, באותו מבנה: קישור לדף ההרשמה.
+         ב-CSS .cta-panel + .cta-panel מוסיף רווח רק מעל הפאנל השני -->
+    <div class="cta-panel">
+      <div>
+        <h2>המסלול הבא שלכם מתחיל בסקרנות.</h2>
+        <p>גלו תפקיד חדש, השוו בין תחומי עשייה ומצאו מה מדליק אתכם.</p>
+      </div>
+      <a class="btn primary" href="pages/order.html">להרשמה ליום TECHDAY ←</a>
+    </div>
+  </section>
+</main>
+
+</div>
+
+<!-- ===== footer: הכותרת התחתונה. זהה בכל דפי האתר =====
+     ב-CSS היא flex בשורה: זכויות היוצרים בצד אחד והקישורים בצד השני.
+     &copy; היא "ישות" (entity) של HTML שמציגה את הסימן © -->
+<footer>
+  <p>כל הזכויות שמורות &copy; 2026 TECHDAY</p>
+  <!-- תפריט ניווט שני, עם aria-label אחר, כדי שקורא מסך יבדיל בינו לבין התפריט הראשי -->
+  <nav aria-label="קישורים תחתונים">
+    <ul>
+      <li><a href="pages/about.html">אודות</a></li>
+      <li><a href="pages/order.html">הרשמה</a></li>
+      <!-- download: הדפדפן מוריד את הקובץ למחשב, במקום לפתוח אותו בלשונית.
+           את הסמל 📄 שליד הקישור לא כותבים כאן: ה-CSS מוסיף אותו לבד לכל קישור שמסתיים ב-.pdf (a[href$=".pdf"]::before) -->
+      <li><a href="assets/files/techday-guide.pdf" download>מדריך להורדה</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<!-- כפתור "חזרה לראש הדף": קבוע בפינת המסך (position: fixed ב-CSS) ולא זז בגלילה.
+     href="#": קישור לראש הדף. הגלילה חלקה בזכות scroll-behavior: smooth ב-CSS.
+     aria-label: לכפתור יש רק חץ בלי מילים, ולכן נותנים לו שם בשביל קוראי מסך -->
+<a class="to-top" href="#" aria-label="חזרה לראש הדף">↑</a>
+</body>
+</html>

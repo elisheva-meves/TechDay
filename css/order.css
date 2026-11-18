@@ -1,0 +1,351 @@
+/* order.css - עיצוב ייחודי לדף ההרשמה (הטופס) בלבד. נטען אחרי style.css.
+
+   הפתיח של הדף: רווח של 32 פיקסלים מתחתיו
+   הסלקטור: header שהוא ילד ישיר של main, כלומר הפתיח של הדף (ולא הכותרת העליונה של האתר) */
+main > header {
+  margin-bottom: 32px;
+}
+
+/* הפסקה האחרונה בפתיח בלי רווח מתחתיה, כדי שלא יהיה רווח כפול
+   הסלקטור: p שהוא הילד האחרון בתוך הפתיח של הדף */
+main > header p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- הטופס ----------
+   flex בעמודה: שלושת החלקים (fieldset) והכפתורים זה מתחת לזה, עם רווח אחיד של 22 פיקסלים
+   הסלקטור: הטופס */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* כל חלק בטופס: flex עם גלישה, כך שהשדות מסתדרים בשורות.
+   gap: 18px 3% - 18 פיקסלים בין שורות, ו-3% בין שדות באותה שורה.
+   margin: 0 - מבטל את השוליים של fieldset. border-radius: 20px - פינות מעוגלות
+   הסלקטור: כל fieldset (כל חלק בטופס) */
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 3%;
+  margin: 0;
+  padding: 22px 24px 26px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+/* כותרת החלק (legend) נראית כמו תגית: רקע כחול שקוף למחצה ומסגרת מעוגלת לגמרי
+   הסלקטור: כל legend (כותרת של חלק) */
+legend {
+  padding: 3px 16px;
+  color: #dce8ff;
+  background: rgba(71, 127, 245, 0.22);
+  border: 1px solid rgba(102, 152, 255, 0.4);
+  border-radius: 99px;
+  font-weight: 700;
+}
+
+/* כל שדה (p שעוטף label ו-input):
+   flex: 1 1 45% - בערך חצי שורה, ולכן שני שדות בשורה.
+   הוא בעצמו flex בעמודה: הכיתוב מעל השדה, עם רווח של 6 פיקסלים
+   הסלקטור: p שהוא ילד ישיר של fieldset (כל שדה רגיל) */
+fieldset > p {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+/* .wide: השדה תופס שורה שלמה (flex-basis: 100%), למשל ההודעה והכותרות של הרדיו
+   הסלקטור: p כזה שיש לו גם class="wide" */
+fieldset > p.wide {
+  flex-basis: 100%;
+}
+
+/* הכיתובים של השדות
+   הסלקטור: כל הכיתובים (label) */
+label {
+  color: #c4d0e5;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* חיווי חובה: כוכבית אדומה אחרי הכיתוב של כל שדה חובה, בלי לכתוב אותה ב-HTML.
+   :has(> [required]) - בוחר p שיש לו ילד ישיר עם התכונה required.
+   > label::after - מוסיף תוכן (" *") אחרי הכיתוב שבתוך אותו p
+   הסלקטור: ה-::after של label, שנמצא ב-p שיש לו ילד ישיר עם התכונה required */
+fieldset > p:has(> [required]) > label::after {
+  content: " *";
+  color: var(--red);
+}
+
+/* ---------- שדות קלט ----------
+   עיצוב אחיד לכל השדות: רוחב מלא, רקע כהה שקוף, ריווח פנימי ופינות מעוגלות.
+   font: inherit - שדות טופס לא יורשים את הגופן של הדף כברירת מחדל, וכך הם מקבלים את Heebo.
+   transition - השינויים בפוקוס ובבדיקת התקינות קורים בהדרגה
+   הסלקטור: כל שדות הקלט: input, select ו-textarea */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* ::placeholder - הטקסט האפור לדוגמה בתוך השדה
+   הסלקטור: טקסט הדוגמה (::placeholder) בשדות input ו-textarea */
+input::placeholder,
+textarea::placeholder {
+  color: #6f7f9c;
+}
+/* מצב פוקוס (השדה שהסמן נמצא בו):
+   outline: none - מבטל את קו הבחירה הרגיל של הדפדפן.
+   במקומו: מסגרת כחולה, ו-box-shadow: 0 0 0 3px - צל בלי הזזה ובלי טשטוש, שמתפשט 3 פיקסלים: טבעת זוהרת
+   הסלקטור: שדה שהסמן נמצא בו עכשיו (:focus) */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #659bff;
+  box-shadow: 0 0 0 3px rgba(87, 148, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* בדיקת תקינות חזותית: מסגרת ירוקה לשדה תקין, אבל רק אחרי שהקלידו בו משהו.
+   :placeholder-shown - השדה מציג עכשיו placeholder, כלומר הוא ריק.
+   :not(:placeholder-shown) - ההפך: כבר הקלידו בו. :valid - הערך עובר את כל הבדיקות.
+   שדות תאריך ושעה לא כלולים (:not([type="date"])), כי אין להם placeholder,
+   ולכן הם היו נצבעים כבר כשהדף נפתח
+   הסלקטור: input שאינו תאריך ואינו שעה, שאינו ריק (:not(:placeholder-shown)), והערך שלו תקין (:valid). וגם textarea כזה */
+input:not([type="date"]):not([type="time"]):not(:placeholder-shown):valid,
+textarea:not(:placeholder-shown):valid {
+  border-color: rgba(72, 221, 176, 0.65);
+}
+/* מסגרת אדומה כשהערך לא תקין (:invalid), שוב רק אחרי שהקלידו משהו.
+   בשדה תאריך משתמשים ב-:user-invalid, שפועל רק אחרי שהמשתמש נגע בשדה
+   הסלקטור: אותו דבר עם ערך לא תקין (:invalid), וגם שדה תאריך לא תקין אחרי שהמשתמש נגע בו (:user-invalid) */
+input:not([type="date"]):not([type="time"]):not(:placeholder-shown):invalid,
+textarea:not(:placeholder-shown):invalid,
+input[type="date"]:user-invalid {
+  border-color: var(--red);
+}
+
+/* הרשימה הנפתחת של select מצוירת על ידי מערכת ההפעלה, לפעמים על רקע לבן.
+   לכן לאפשרויות יש טקסט כהה על רקע לבן, כדי שתמיד יהיה אפשר לקרוא אותן
+   הסלקטור: האפשרויות (option) והקבוצות (optgroup) בתוך select */
+select option,
+select optgroup {
+  color: #0b1226;
+  background: #fff;
+}
+
+/* textarea: גובה מינימלי
+   הסלקטור: שדה ההודעה (textarea) */
+textarea {
+  min-height: 110px;
+  /* resize: vertical - אפשר למתוח את השדה רק לגובה, לא לרוחב */
+  resize: vertical;
+}
+
+/* color-scheme: dark - אומר לדפדפן שהשדה על רקע כהה, ולכן האייקון ולוח השנה מוצגים בצבעים כהים
+   הסלקטור: input שה-type שלו date או time (סלקטור תכונה) */
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+}
+
+/* בוחר הצבעים: גובה קבוע וסמן של "יד"
+   הסלקטור: input שה-type שלו color */
+input[type="color"] {
+  height: 46px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* המחוון: בלי רקע, מסגרת וצל של שאר השדות.
+   accent-color - משנה את הצבע של הפקד המובנה בדפדפן (החלק המלא והעיגול) לכחול של האתר
+   הסלקטור: input שה-type שלו range */
+input[type="range"] {
+  padding: 0;
+  height: 30px;
+  accent-color: var(--blue);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+/* שדה בחירת הקובץ
+   הסלקטור: input שה-type שלו file */
+input[type="file"] {
+  padding: 8px;
+}
+
+/* ::file-selector-button - הכפתור "Choose File" שבתוך שדה הקובץ. מעוצב כמו כפתור כחול של האתר
+   הסלקטור: כפתור הבחירה (::file-selector-button) שבתוך שדה הקובץ */
+input[type="file"]::file-selector-button {
+  margin-inline-end: 12px;
+  padding: 6px 14px;
+  color: #fff;
+  background: #377df5;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- רדיו וצ'קבוקס ----------
+   הקבוצות של כפתורי הרדיו ותיבות הסימון (div בתוך fieldset): שורה שלמה, flex עם גלישה
+   הסלקטור: div שהוא ילד ישיר של fieldset (קבוצות הרדיו ותיבות הסימון) */
+fieldset > div {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+/* position: relative - ה-input המוסתר (absolute) ממוקם ביחס ל-p שלו
+   הסלקטור: p שהוא ילד ישיר של div כזה (כל אפשרות) */
+fieldset > div > p {
+  position: relative;
+  margin: 0;
+}
+
+/* השדה עצמו (העיגול או הריבוע) מוסתר ויזואלית, וה-label משמש ככפתור.
+   לא משתמשים ב-display: none, כי אז אי אפשר היה להגיע אליו עם המקלדת,
+   וקורא מסך לא היה מכיר אותו. במקום זה הוא בגודל 1 פיקסל ושקוף לגמרי (opacity: 0)
+   הסלקטור: input בתוך הקבוצות (כפתורי הרדיו ותיבות הסימון) */
+fieldset > div input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* כשמגיעים לאפשרות עם המקלדת (Tab), ה-label שאחריה מקבל טבעת כחולה,
+   כדי שיהיה ברור איפה נמצאים
+   הסלקטור: label שבא מיד אחרי input כזה, כשהגיעו ל-input עם המקלדת */
+fieldset > div input:focus-visible + label {
+  box-shadow: 0 0 0 3px rgba(87, 148, 255, 0.45);
+}
+
+/* תיבת האישור בסוף הטופס לא מוסתרת. width: auto מבטל את ה-width: 100% של כל השדות
+   הסלקטור: input בתוך האלמנט עם class="agree" (תיבת האישור) */
+.agree input {
+  width: auto;
+  accent-color: var(--blue);
+}
+/* ה-label של כל אפשרות נראה כמו כפתור מעוגל ("קפסולה"), עם סמן של "יד"
+   הסלקטור: label בתוך הקבוצות */
+fieldset > div label {
+  display: inline-block;
+  padding: 7px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+/* הסלקטור: label כזה כשהעכבר מעליו */
+fieldset > div label:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/* מצב בחירה: label שבא מיד אחרי שדה מסומן.
+   :checked - כפתור רדיו או תיבת סימון שנבחרו. + label - ה-label שבא מיד אחריהם.
+   לכן ב-HTML ה-input חייב להיות לפני ה-label
+   הסלקטור: label שבא מיד אחרי input מסומן (:checked) */
+input:checked + label {
+  color: #fff;
+  background: rgba(71, 127, 245, 0.28);
+  border-color: #6698ff;
+}
+
+/* שורת האישור: flex בשורה (במקום בעמודה כמו שאר השדות), התיבה והכיתוב זה לצד זה
+   הסלקטור: האלמנט עם class="agree" (שורת האישור) */
+.agree {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+/* הסלקטור: הכיתוב בשורת האישור */
+.agree label {
+  font-weight: 400;
+}
+
+/* ---------- כפתורי איפוס ושליחה ----------
+   p שהוא ילד ישיר של form (השורה של הכפתורים): flex בשורה עם רווח
+   הסלקטור: p שהוא ילד ישיר של form (שורת הכפתורים) */
+form > p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+}
+
+/* סלקטור תכונה: כפתור השליחה מקבל מעבר צבעים, כמו .btn.primary
+   הסלקטור: button שה-type שלו submit (כפתור השליחה) */
+button[type="submit"] {
+  border-color: transparent;
+  background: linear-gradient(110deg, #377df5, #8059ed);
+  box-shadow: 0 8px 26px rgba(91, 101, 231, 0.3);
+}
+
+/* כפתור האיפוס נצבע באדום במעבר עכבר, כאזהרה שהוא מוחק את כל מה שמולא
+   הסלקטור: button שה-type שלו reset (כפתור האיפוס), כשהעכבר מעליו */
+button[type="reset"]:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ---------- aside ----------
+   הרשימה הממוספרת בתפריט הצדדי, ורווח בין השלבים
+   הסלקטור: רשימה ממוספרת בתוך aside */
+aside ol {
+  margin: 0 0 14px;
+  padding-inline-start: 1.3em;
+  color: #c4d0e5;
+}
+
+/* הסלקטור: כל פריט ברשימה הזו חוץ מהראשון */
+aside ol li + li {
+  margin-top: 8px;
+}
+
+/* small: ההערה הקטנה בתחתית
+   הסלקטור: התגית small בתוך aside */
+aside small {
+  color: var(--muted);
+}
+
+/* ---------- רספונסיביות ----------
+   טאבלט (900 פיקסלים או פחות): כל שדה בשורה שלמה במקום שניים בשורה, כדי שלא יהיו צפופים */
+@media (max-width: 900px) {
+  /* הסלקטור: p שהוא ילד ישיר של fieldset (כל שדה רגיל) */
+  fieldset > p {
+    flex-basis: 100%;
+  }
+}
+
+/* טלפון (620 פיקסלים או פחות): פחות ריווח בתוך החלקים,
+   וכל כפתור ברוחב מלא, כדי שיהיה נוח ללחוץ עליו באצבע */
+@media (max-width: 620px) {
+  /* הסלקטור: כל fieldset (כל חלק בטופס) */
+  fieldset {
+    padding: 18px 16px 22px;
+  }
+
+  /* הסלקטור: כפתורים (.btn) בתוך שורת הכפתורים של הטופס */
+  form > p .btn {
+    flex: 1 1 100%;
+  }
+}
